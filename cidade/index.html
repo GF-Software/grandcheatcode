@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe City — o mapa</title>
+<meta name="description" content="O mapa da Vibe City: os distritos do Grand Cheat Code, o que cada um entrega e quando abre.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Changa+One&family=Josefin+Sans:wght@400;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Mapa v0 da Vibe City: página estática, sem login e sem dado de comprador.
+   Mesma identidade da landing (../index.html): cores, fontes e artes de ../img/. */
+:root{
+  --noite:#0c0d1b; --noite2:#14152b; --asfalto:#07070f; --creme:#fff0c9; --lilas:#ccc2f5; --lilas2:#e5ddff;
+  --rosa:#ffb2c6; --rosa-tinta:#663b56; --pink:#ff5fa2; --ambar:#ffd27a; --ciano:#5fe0d8; --verde:#8ff0c8;
+  --por-do-sol:linear-gradient(100deg,#ffd27a 0%,#ff9a4d 26%,#ff5fa2 60%,#8b5cf6 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--noite);color:#fff;font-family:"Jost",Helvetica,Arial,sans-serif;font-weight:500;line-height:1.5;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.miolo{max-width:1180px;margin:0 auto;padding:0 24px}
+.deco{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.16em}
+.olho{font-size:13px;color:var(--rosa)}
+.pilula{display:inline-block;background:var(--rosa);color:var(--rosa-tinta);font-family:"Jost",sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;text-decoration:none;text-align:center;box-shadow:0 0 34px rgba(255,178,198,.28);transition:transform .15s,box-shadow .15s}
+.pilula:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(255,178,198,.5)}
+.pilula[aria-disabled="true"]{background:rgba(255,178,198,.14);color:var(--rosa);box-shadow:none;border:1px solid rgba(255,178,198,.4);cursor:default;transform:none}
+
+/* vista da cidade */
+.vista{position:relative;min-height:min(72vh,620px);display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(180deg,#6f63c9 0%,#a07bd8 34%,#e79ac6 62%,#ffc59a 100%)}
+.vista > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vista::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,27,.5) 0%,rgba(12,13,27,.08) 30%,rgba(12,13,27,.62) 68%,var(--noite) 100%)}
+.vista > *:not(img){position:relative;z-index:1}
+.topo{display:flex;justify-content:space-between;align-items:center;padding:22px 26px 0}
+.mono{font-family:"Changa One","Barlow Condensed",sans-serif;font-weight:400;font-size:27px;text-decoration:none}
+.nav{display:flex;gap:22px;align-items:center;font-size:15px}
+.nav a{text-decoration:none;color:#fff}
+.nav a.pilula{color:var(--rosa-tinta);padding:9px 18px;font-size:14px}
+.nav a.pilula[aria-disabled="true"]{color:#fff;background:rgba(12,13,27,.55);border-color:rgba(255,255,255,.35)}
+.titulo{margin-top:auto;width:100%;padding-top:60px;padding-bottom:34px}
+.titulo .olho{color:#fff}
+h1{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.09em;line-height:1;font-size:clamp(46px,9vw,112px);margin:12px 0 10px;text-shadow:0 4px 30px rgba(50,20,90,.5)}
+.titulo .sub{max-width:600px;font-size:clamp(17px,1.7vw,21px);text-shadow:0 2px 16px rgba(20,8,50,.7)}
+.placar{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:22px;font-size:15px;color:var(--lilas2)}
+.placar span{padding:9px 16px 8px;border-radius:999px;background:rgba(12,13,27,.66);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px)}
+.placar b{color:var(--verde);font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1;margin-right:5px;vertical-align:-1px}
+
+/* mapa: quadras e ruas vistas de cima */
+main{padding:26px 0 80px}
+.mapa{padding:20px;border-radius:28px;background:var(--asfalto);border:1px solid rgba(204,194,245,.16);display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr) 40px minmax(0,1fr);grid-template-rows:auto 54px auto 54px auto}
+.rua{display:grid;place-items:center}
+.rua.h{grid-column:1/-1;grid-row:var(--r);background:repeating-linear-gradient(90deg,var(--cor) 0 16px,transparent 16px 30px) 0 50%/100% 2px no-repeat}
+.rua.v{grid-row:1/-1;grid-column:var(--c);background:repeating-linear-gradient(180deg,rgba(204,194,245,.28) 0 16px,transparent 16px 30px) 50% 0/2px 100% no-repeat}
+.rua span{font-family:"Josefin Sans",sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cor);background:var(--asfalto);padding:3px 18px 0}
+.distrito{grid-column:var(--c);grid-row:var(--r);position:relative;overflow:hidden;border-radius:18px;min-height:372px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:#2b2456}
+.distrito > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.5);transition:filter .6s ease}
+.distrito.aberto > img{filter:none}
+.distrito::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,27,.1) 20%,rgba(12,13,27,.8) 58%,rgba(12,13,27,.97) 100%)}
+.distrito > *:not(img){position:relative;z-index:1}
+.distrito.praca{background:linear-gradient(#2b2456,#2b2456) padding-box,var(--por-do-sol) border-box;border:2px solid transparent}
+.estado{align-self:flex-start;margin-bottom:auto;font-family:"Josefin Sans",sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 13px 6px;border-radius:999px;background:rgba(12,13,27,.78);backdrop-filter:blur(6px);color:var(--ambar)}
+.aberto .estado,.estado.ja{color:var(--verde)}
+.distrito h2{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:40px;line-height:.95;color:var(--creme);margin:16px 0 7px}
+.distrito p{font-size:15.5px;color:var(--lilas2);line-height:1.4}
+.distrito ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+.distrito li{font-size:13px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14)}
+.distrito .pilula{margin-top:16px;align-self:stretch;padding:12px 16px}
+.legenda{display:flex;gap:10px 26px;flex-wrap:wrap;margin-top:20px;font-size:15px;color:var(--lilas)}
+.legenda i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+
+/* sessão ao vivo */
+.aovivo{margin-top:56px;display:flex;border-radius:24px;overflow:hidden;background:var(--noite2);border:1px solid rgba(204,194,245,.18)}
+.aovivo .foto{position:relative;flex:0 0 42%;min-height:300px;background:#3a2f6b}
+.aovivo .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.aovivo .ficha{flex:1;padding:34px 38px;align-self:center}
+.aovivo h2{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:50px;line-height:.95;color:var(--creme);margin:10px 0 12px}
+.aovivo .quando{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:19px;line-height:1.3}
+.aovivo .quando small{display:block;font-family:"Jost",sans-serif;font-weight:500;text-transform:none;letter-spacing:0;font-size:14px;color:var(--lilas)}
+.aovivo p:not(.olho):not(.quando){color:var(--lilas);font-size:17px;margin-top:12px;max-width:480px}
+.aovivo .estado{display:inline-block;margin:20px 0 0;background:rgba(255,255,255,.07)}
+
+footer{padding:34px 0 40px;color:#8583a8;font-size:13.5px;border-top:1px solid rgba(204,194,245,.12)}
+footer a{color:var(--lilas)}
+
+@media (max-width:860px){
+  .nav a:not(.pilula){display:none}
+  .topo{padding:18px 16px 0}
+  .vista{min-height:0}
+  .titulo{padding-top:150px;padding-bottom:26px}
+  main{padding:18px 0 60px}
+  .miolo{padding-left:16px;padding-right:16px}
+  .mapa{display:block;padding:10px;border-radius:22px}
+  .rua{display:none}
+  .distrito{min-height:316px;margin-bottom:10px}
+  .distrito:last-child{margin-bottom:0}
+  .distrito h2{font-size:36px}
+  .aovivo{flex-direction:column;margin-top:40px}
+  .aovivo .foto{flex:none;min-height:0;aspect-ratio:16/9}
+  .aovivo .ficha{padding:24px 22px 26px;align-self:stretch}
+  .aovivo h2{font-size:40px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="vista">
+  <img src="../img/panorama.jpg" alt="">
+  <div class="topo">
+    <a class="mono" href="../" aria-label="Grand Cheat Code">GCC</a>
+    <nav class="nav"><a href="../">Grand Cheat Code</a><a class="pilula entrar" role="link" aria-disabled="true">Convite chega com a sua licença</a></nav>
+  </div>
+  <div class="miolo titulo">
+    <p class="olho deco">O mapa · v0</p>
+    <h1>Vibe City</h1>
+    <p class="sub">A cidade de quem constrói com IA. Cada distrito guarda um pacote de skills do Grand Cheat Code e abre numa data.</p>
+    <p class="placar"><span><b id="abertos">–</b>distritos abertos</span><span id="proximo">Os distritos abrem às 11h11, horário de Brasília</span></p>
+  </div>
+</header>
+
+<main>
+  <div class="miolo">
+    <div class="mapa">
+      <div class="rua v" style="--c:2"></div><div class="rua v" style="--c:4"></div>
+      <div class="rua h" style="--r:2;--cor:var(--ciano)"><span>Avenida Plug and Play</span></div>
+      <div class="rua h" style="--r:4;--cor:var(--pink)"><span>Avenida Por Dentro</span></div>
+
+      <article class="distrito" data-abre="2026-11-11" style="--c:1;--r:1">
+        <img src="../img/c2.jpg" alt="">
+        <span class="estado">11/11</span>
+        <h2>Portão</h2>
+        <p>A entrada da cidade: o guia Comece aqui e a skill de Perfil.</p>
+        <ul><li>Qual IA assinar</li><li>10 conceitos</li><li>Instalar em 5 min</li><li>Perfil</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-11-11" style="--c:3;--r:1">
+        <img src="../img/c1.jpg" alt="">
+        <span class="estado">11/11</span>
+        <h2>Bairro Plug and Play</h2>
+        <p>O pacote de Organização: seis skills.</p>
+        <ul><li>Faxina</li><li>Pastas e projetos</li><li>Memória</li><li>Formato de resposta</li><li>Pelo celular</li><li>Primeiro projeto</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-11-11" style="--c:5;--r:1">
+        <img src="../img/t8.jpg" alt="">
+        <span class="estado">11/11</span>
+        <h2>Tribunal</h2>
+        <p>A Banca de 5 revisores: cinco agentes olham o trabalho antes de ir para o ar.</p>
+        <ul><li>Hacker</li><li>Confuso</li><li>Sênior</li><li>Testador</li><li>Chefe</li></ul>
+      </article>
+      <article class="distrito praca" id="praca" data-abre="2026-11-11" style="--c:3;--r:3">
+        <img src="../img/p8.jpg" alt="">
+        <span class="estado">11/11</span>
+        <h2>Praça</h2>
+        <p>O Discord fechado dos fundadores.</p>
+        <ul><li>#avisos</li><li>#praça</li><li>#ajuda-instalação</li><li>#mostre-o-que-fez</li></ul>
+        <a class="pilula entrar" role="link" aria-disabled="true">Convite chega com a sua licença</a>
+      </article>
+      <article class="distrito" data-abre="2026-11-18" style="--c:1;--r:3">
+        <img src="../img/t5.jpg" alt="">
+        <span class="estado">18/11</span>
+        <h2>Oficina</h2>
+        <p>A parte de construção do pacote Vibe coding.</p>
+        <ul><li>Orquestrador</li><li>Modo automático</li><li>Construção</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-11-18" style="--c:5;--r:3">
+        <img src="../img/c3.jpg" alt="">
+        <span class="estado">18/11</span>
+        <h2>Distrito Financeiro</h2>
+        <p>A parte de custo do pacote Vibe coding.</p>
+        <ul><li>Qual modelo</li><li>Tokens</li><li>Custo</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-11-25" style="--c:1;--r:5">
+        <img src="../img/p6.jpg" alt="">
+        <span class="estado">25/11</span>
+        <h2>Cofre</h2>
+        <p>O pacote de Segurança.</p>
+        <ul><li>Dados compartilhados</li><li>Chaves fora do código</li><li>Revisão antes da publicação</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-12-02" style="--c:3;--r:5">
+        <img src="../img/c5.jpg" alt="">
+        <span class="estado">02/12</span>
+        <h2>Farol</h2>
+        <p>O pacote Ser encontrado: seu site no Google e nas respostas das IAs.</p>
+        <ul><li>SEO, GEO e AEO</li><li>Search Console</li><li>llms.txt</li><li>Domínio</li></ul>
+      </article>
+      <article class="distrito" data-abre="2026-12-09" style="--c:5;--r:5">
+        <img src="../img/t3.jpg" alt="">
+        <span class="estado">09/12</span>
+        <h2>Prefeitura</h2>
+        <p>Decidir o que construir, e um time de agentes para construir.</p>
+        <ul><li>Rascunho</li><li>Requisitos</li><li>Arquitetura</li><li>Sprints com Jira</li><li>Time de agentes</li></ul>
+      </article>
+    </div>
+    <div class="legenda"><span><i style="background:var(--ciano)"></i>Avenida Plug and Play: o SKILL.md de cada skill, para instalar e usar</span><span><i style="background:var(--pink)"></i>Avenida Por Dentro: o CONFIG.md e o PORQUE.md, com o que dá para ajustar e o porquê</span></div>
+
+    <section class="aovivo">
+      <div class="foto"><img src="../img/p3.jpg" alt=""></div>
+      <div class="ficha">
+        <p class="olho deco">Ao vivo</p>
+        <h2>Sessão de instalação</h2>
+        <p class="quando">Quinta, 12/11, às 20h<small>horário de Brasília</small></p>
+        <p>45 minutos para instalar junto. Fica gravada só para os fundadores.</p>
+        <span class="estado" id="sessao">12/11 · 20h</span>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="miolo">Vibe City · mapa v0, sem login e sem dados de comprador · <a href="../">Grand Cheat Code</a> · por Gustavo Fonseca · GFV. Produto independente, sem vínculo com nenhum estúdio de jogos.</div></footer>
+
+<script>
+// Convite da Praça (Discord). Vazio: o botão mostra "Convite chega com a sua licença".
+const PRACA = "";
+// Cada distrito abre às 11h11 (horário de Brasília, UTC−3) do dia escrito em data-abre.
+const HORA = "T11:11:00-03:00";
+const SESSAO = new Date("2026-11-12T20:00:00-03:00").getTime(), DURACAO = 45 * 60000;
+
+const distritos = [...document.querySelectorAll(".distrito")].map(el => ({
+  el, estado: el.querySelector(".estado"), nome: el.querySelector("h2").textContent,
+  abre: new Date(el.dataset.abre + HORA).getTime(),
+  dia: el.dataset.abre.slice(8) + "/" + el.dataset.abre.slice(5, 7),
+}));
+const praca = distritos.find(x => x.el.id === "praca");
+const junta = n => n.length > 1 ? n.slice(0, -1).join(", ") + " e " + n[n.length - 1] : n[0];
+
+function pinta() {
+  const agora = Date.now();
+  distritos.forEach(x => {
+    const aberto = agora >= x.abre;
+    x.el.classList.toggle("aberto", aberto);
+    x.estado.textContent = aberto ? "Aberto · " + x.dia : "Abre " + x.dia;
+  });
+  const fechados = distritos.filter(x => agora < x.abre);
+  document.getElementById("abertos").textContent = (distritos.length - fechados.length) + " de " + distritos.length;
+  const proxima = fechados.length ? Math.min(...fechados.map(x => x.abre)) : 0;
+  const proximos = fechados.filter(x => x.abre === proxima);
+  document.getElementById("proximo").textContent = proxima ? "Em " + proximos[0].dia + (proximos.length > 1 ? " abrem " : " abre ") + junta(proximos.map(x => x.nome)) : "A cidade inteira está aberta";
+
+  document.querySelectorAll(".entrar").forEach(b => {
+    if (PRACA && agora >= praca.abre) {
+      b.href = PRACA; b.target = "_blank"; b.rel = "noopener"; b.removeAttribute("aria-disabled"); b.textContent = "Entrar na Praça";
+    } else {
+      b.removeAttribute("href"); b.setAttribute("aria-disabled", "true");
+      b.textContent = PRACA ? "A Praça abre em " + praca.dia : "Convite chega com a sua licença";
+    }
+  });
+
+  const sessao = document.getElementById("sessao");
+  sessao.textContent = agora < SESSAO ? "12/11 · 20h" : agora < SESSAO + DURACAO ? "Ao vivo agora" : "Aconteceu em 12/11";
+  sessao.classList.toggle("ja", agora >= SESSAO && agora < SESSAO + DURACAO);
+}
+pinta(); setInterval(pinta, 30000);
+</script>
+</body>
+</html>
