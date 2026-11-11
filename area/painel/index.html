@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de entrega — GCC</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<style>
+/* Painel do Gustavo. Os dados só chegam depois do login, pela função painel_entrega() (confere admins). */
+:root{--fundo:#0c0d1b;--cartao:#14152b;--linha:rgba(204,194,245,.16);--texto:#f3f0ff;--fraco:#a9a3cf;--rosa:#ffb2c6;--rosa-tinta:#663b56;--verde:#8ff0c8;--ambar:#ffd27a;--erro:#ff9a9a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--fundo);color:var(--texto);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;min-height:100vh}
+.miolo{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin-bottom:4px}
+.fraco{color:var(--fraco);font-size:13px}
+form{display:grid;gap:10px;max-width:340px;margin-top:24px}
+input{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--linha);background:var(--cartao);color:var(--texto)}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:10px 18px;background:var(--rosa);color:var(--rosa-tinta);font-weight:600}
+button.fina{background:transparent;color:var(--rosa);border:1px solid rgba(255,178,198,.45)}
+.erro{color:var(--erro)}
+.funil{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+.etapa{background:var(--cartao);border:1px solid var(--linha);border-radius:14px;padding:14px}
+.etapa b{display:block;font-size:30px;line-height:1.1}
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:8px}
+.lista{display:grid;gap:10px}
+.compra{background:var(--cartao);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1.4fr 2fr auto;gap:14px;align-items:center}
+.compra.atencao{border-color:rgba(255,210,122,.6)}
+.nome{font-weight:600}
+.passos{display:flex;flex-wrap:wrap;gap:6px}
+.p{font-size:12.5px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--fraco)}
+.p.ok{background:rgba(143,240,200,.14);color:var(--verde)}
+.p.mal{background:rgba(255,154,154,.14);color:var(--erro)}
+.selo{font-size:11.5px;padding:2px 8px;border-radius:999px;background:#5b3a00;color:var(--ambar);margin-left:6px}
+.acoes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.acoes a{color:var(--rosa);font-size:13.5px}
+label.grupo{display:flex;gap:6px;align-items:center;font-size:13.5px;cursor:pointer}
+.contato{overflow-wrap:anywhere}
+.acoes button{padding:6px 12px;font-size:13px}
+.compra.revogada{opacity:.6}
+.vazio{padding:30px;text-align:center;color:var(--fraco);background:var(--cartao);border-radius:14px}
+[hidden]{display:none!important}
+@media (max-width:760px){.funil{grid-template-columns:repeat(2,1fr)}.compra{grid-template-columns:1fr}.acoes{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<div class="miolo">
+  <h1>Entrega do Grand Cheat Code</h1>
+  <p class="fraco">Pagou → e-mail enviado → baixou → entrou no grupo. "Entrou no grupo" é marcado à mão.</p>
+
+  <form id="entrar" hidden>
+    <input id="email" type="email" autocomplete="username" placeholder="e-mail" required>
+    <input id="senha" type="password" autocomplete="current-password" placeholder="senha" required>
+    <button type="submit">Entrar</button>
+    <p class="erro" id="entrar-erro" aria-live="polite"></p>
+  </form>
+
+  <section id="painel" hidden>
+    <div class="funil">
+      <div class="etapa"><b id="n-pagou">0</b><span class="fraco">pagaram</span></div>
+      <div class="etapa"><b id="n-email">0</b><span class="fraco">e-mail enviado</span></div>
+      <div class="etapa"><b id="n-baixou">0</b><span class="fraco">baixaram</span></div>
+      <div class="etapa"><b id="n-grupo">0</b><span class="fraco">no grupo</span></div>
+    </div>
+    <div class="barra">
+      <label class="grupo"><input type="checkbox" id="ver-testes"> mostrar compras de teste</label>
+      <span><button class="fina" id="atualizar" type="button">Atualizar</button> <button class="fina" id="sair" type="button">Sair</button></span>
+    </div>
+    <p class="fraco" id="status" aria-live="polite" style="margin:8px 0 12px"></p>
+    <div class="lista" id="lista"></div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" integrity="sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug" crossorigin="anonymous"></script>
+<script>
+// Preenchidos quando o projeto existir. A chave pública é feita para ficar no site: sem login ela não lê nada.
+const SUPABASE_URL = "";
+const SUPABASE_CHAVE_PUBLICA = "";
+
+const $ = (id) => document.getElementById(id);
+const sb = SUPABASE_URL ? supabase.createClient(SUPABASE_URL, SUPABASE_CHAVE_PUBLICA, {
+  // sessionStorage: a sessão do admin some ao fechar a aba e não fica ao alcance das páginas do site com medição.
+  auth: { storage: window.sessionStorage, persistSession: true },
+}) : null;
+let compras = [];
+
+const dataHora = (iso) => iso ? new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }) : "";
+const real = (c) => c == null ? "" : (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+function el(tag, attrs = {}, ...filhos){
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "class") e.className = v; else if (v !== false && v != null) e.setAttribute(k, v); }
+  for (const f of filhos) if (f != null) e.append(f);
+  return e;
+}
+
+function passo(texto, estado){ return el("span", { class: "p " + (estado || "") }, texto); }
+
+function linkWhats(c){
+  const n = String(c.telefone || "").replace(/\D/g, "");
+  if (n.length < 10) return null;
+  const primeiro = (c.nome.split(" ")[0] || "").toLowerCase().replace(/^./, (x) => x.toUpperCase());
+  const msg = "Oi, " + primeiro + "! Aqui é o Gustavo, do Grand Cheat Code. Sua licença " + c.licenca + " já está no seu e-mail. Te mando o link do grupo dos fundadores por aqui?";
+  return "https://wa.me/" + n + "?text=" + encodeURIComponent(msg);
+}
+
+function desenhar(){
+  const verTestes = $("ver-testes").checked;
+  const vis = compras.filter((c) => verTestes || !c.teste);
+  $("n-pagou").textContent = vis.length;
+  $("n-email").textContent = vis.filter((c) => c.email_enviado_em).length;
+  $("n-baixou").textContent = vis.filter((c) => c.total_downloads > 0).length;
+  $("n-grupo").textContent = vis.filter((c) => c.entrou_no_grupo_em).length;
+  const lista = $("lista"); lista.replaceChildren();
+  if (!vis.length) { lista.append(el("div", { class: "vazio" }, "Nenhuma compra ainda.")); return; }
+  const vezes = {};
+  for (const c of vis) vezes[c.email.toLowerCase()] = (vezes[c.email.toLowerCase()] || 0) + 1;
+  const repetidos = new Set(Object.keys(vezes).filter((e) => vezes[e] > 1));
+  for (const c of vis) {
+    const atencao = !c.revogada_em && (!c.email_enviado_em || !c.entrou_no_grupo_em);
+    const quem = el("div", {},
+      el("div", { class: "nome" }, c.nome, c.teste ? el("span", { class: "selo" }, "teste") : null),
+      el("div", { class: "fraco" }, c.licenca + " · " + (c.edicao === "heist" ? "Heist" : "Fundador") + " · " + real(c.valor_centavos)),
+      el("div", { class: "fraco contato" }, c.email + (c.telefone ? " · " + c.telefone : "") + (repetidos.has(c.email.toLowerCase()) ? " · comprou mais de uma vez" : "")));
+    const passos = el("div", { class: "passos" },
+      passo("pagou " + dataHora(c.pago_em), "ok"),
+      c.email_enviado_em ? passo("e-mail " + dataHora(c.email_enviado_em), "ok")
+        : passo(c.email_erro ? "e-mail falhou: " + c.email_erro : "e-mail pendente", "mal"),
+      c.total_downloads > 0 ? passo("baixou " + c.total_downloads + "× · " + dataHora(c.ultimo_download_em), "ok") : passo("não baixou"),
+      c.entrou_no_grupo_em ? passo("no grupo " + dataHora(c.entrou_no_grupo_em), "ok") : passo("fora do grupo"),
+      c.revogada_em ? passo("revogada: " + c.motivo_revogacao + " " + dataHora(c.revogada_em), "mal") : null);
+    const caixa = el("input", { type: "checkbox" });
+    caixa.checked = !!c.entrou_no_grupo_em;
+    caixa.addEventListener("change", () => marcar(c, caixa));
+    const w = !c.entrou_no_grupo_em && !c.revogada_em ? linkWhats(c) : null;
+    const reenviar = c.revogada_em ? null : el("button", { type: "button", class: "fina" }, "Reenviar com link novo");
+    if (reenviar) reenviar.addEventListener("click", () => reenviarEmail(c, reenviar));
+    const acoes = el("div", { class: "acoes" },
+      el("label", { class: "grupo" }, caixa, "entrou no grupo"),
+      w ? el("a", { href: w, target: "_blank", rel: "noopener noreferrer" }, "Chamar no WhatsApp") : null,
+      reenviar);
+    lista.append(el("article", { class: "compra" + (atencao ? " atencao" : "") + (c.revogada_em ? " revogada" : "") }, quem, passos, acoes));
+  }
+}
+
+async function carregar(){
+  $("status").textContent = "Carregando…";
+  const { data, error } = await sb.rpc("painel_entrega");
+  if (error) { $("status").textContent = error.code === "42501" ? "Este usuário não é admin do painel." : "Erro ao carregar: " + error.message; return; }
+  compras = data || [];
+  $("status").textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
+  desenhar();
+}
+
+async function reenviarEmail(c, botao){
+  if (!confirm("Mandar um e-mail novo para " + c.email + "? O link antigo da área deixa de abrir.")) return;
+  botao.disabled = true; $("status").textContent = "Reenviando…";
+  const { data, error } = await sb.functions.invoke("area", { body: { acao: "reenviar", licenca: c.licenca } });
+  botao.disabled = false;
+  if (error) {
+    let msg = error.message;
+    try { msg = (await error.context.json()).erro || msg } catch (e) {}
+    $("status").textContent = "Reenvio falhou: " + msg;
+  } else { $("status").textContent = "E-mail reenviado (" + data.envio + ")."; }
+  carregar();
+}
+
+async function marcar(c, caixa){
+  if (!caixa.checked && !confirm("Desmarcar " + c.nome + " do grupo?")) { caixa.checked = true; return; }
+  caixa.disabled = true;
+  const { data, error } = await sb.rpc("marcar_grupo", { p_licenca: c.licenca, p_entrou: caixa.checked });
+  caixa.disabled = false;
+  if (error) { caixa.checked = !caixa.checked; $("status").textContent = "Não salvou: " + error.message; return; }
+  c.entrou_no_grupo_em = data; desenhar();
+}
+
+async function iniciar(){
+  if (!sb) { $("status").textContent = ""; $("painel").hidden = false; $("lista").replaceChildren(el("div", { class: "vazio" }, "Painel ainda não ligado ao Supabase.")); return; }
+  const { data } = await sb.auth.getSession();
+  if (data.session) { $("painel").hidden = false; carregar(); } else { $("entrar").hidden = false; }
+}
+
+$("entrar").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("entrar-erro").textContent = "";
+  const { error } = await sb.auth.signInWithPassword({ email: $("email").value, password: $("senha").value });
+  if (error) { $("entrar-erro").textContent = "Não entrou: " + error.message; return; }
+  $("senha").value = ""; $("entrar").hidden = true; $("painel").hidden = false; carregar();
+});
+$("atualizar").addEventListener("click", carregar);
+$("ver-testes").addEventListener("change", desenhar);
+$("sair").addEventListener("click", async () => { await sb.auth.signOut(); location.reload(); });
+iniciar();
+</script>
+</body>
+</html>

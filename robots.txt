@@ -1,0 +1,8 @@
+# Grand Cheat Code — https://grandcheatcode.gfsoftware.tech
+# Buscadores e IAs são bem-vindos. As páginas de obrigado (pós-pagamento) e a área do comprador ficam de fora.
+User-agent: *
+Allow: /
+Disallow: /obrigado/
+Disallow: /area/
+
+Sitemap: https://grandcheatcode.gfsoftware.tech/sitemap.xml

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sua área — Grand Cheat Code</title>
+<meta name="description" content="Área do comprador do Grand Cheat Code: baixe o seu pacote com a sua licença.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Changa+One&family=Josefin+Sans:wght@600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Área do comprador. Sem medição de propósito: a chave de acesso não pode ir para terceiros. */
+:root{
+  --noite:#0c0d1b; --noite2:#14152b; --creme:#fff0c9; --lilas:#ccc2f5; --lilas2:#e5ddff;
+  --rosa:#ffb2c6; --rosa-tinta:#663b56; --verde:#8ff0c8; --erro:#ff9a9a;
+  --por-do-sol:linear-gradient(100deg,#ffd27a 0%,#ff9a4d 26%,#ff5fa2 60%,#8b5cf6 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--noite);color:#fff;font-family:"Jost",Helvetica,Arial,sans-serif;font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+a{color:inherit}
+.miolo{max-width:760px;margin:0 auto;padding:0 16px}
+.topo{background:linear-gradient(180deg,#6f63c9 0%,#a07bd8 40%,#e79ac6 75%,var(--noite) 100%)}
+.topo .miolo{padding-top:24px;padding-bottom:36px}
+.mono{font-family:"Changa One","Barlow Condensed",sans-serif;font-size:27px;text-decoration:none}
+.olho{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;color:var(--creme);margin-top:60px}
+h1{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.04;font-size:clamp(34px,7vw,64px);margin:12px 0 8px}
+h1 span{background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:18px;color:var(--lilas2)}
+main{padding:24px 0 60px}
+.cartao{padding:22px 20px;border-radius:20px;background:var(--noite2);border:1px solid rgba(204,194,245,.16);margin-bottom:12px}
+.cartao h2{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;line-height:1.05;color:var(--creme)}
+.cartao p{margin-top:6px;color:var(--lilas2)}
+.licenca{font-family:ui-monospace,Menlo,monospace;font-size:20px;letter-spacing:.06em;color:#fff}
+.pilula{display:inline-block;border:0;cursor:pointer;font:inherit;background:var(--rosa);color:var(--rosa-tinta);font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px;text-decoration:none;margin-top:14px}
+.pilula.fina{background:transparent;color:var(--rosa);border:1px solid rgba(255,178,198,.5)}
+.pilula[disabled]{opacity:.6;cursor:wait}
+.aviso{margin-top:10px;font-size:14.5px;color:var(--lilas)}
+.aviso.erro{color:var(--erro)}
+.teste{display:inline-block;margin-top:10px;padding:4px 10px;border-radius:999px;background:#5b3a00;color:#ffd27a;font-size:13px}
+ol{margin:8px 0 0 20px;color:var(--lilas2)}
+footer{padding:22px 0 40px;font-size:13px;color:#8f8ab8;border-top:1px solid rgba(204,194,245,.12)}
+footer button{background:none;border:0;color:#8f8ab8;text-decoration:underline;font:inherit;cursor:pointer}
+[hidden]{display:none!important}
+@media (max-width:560px){.pilula{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="miolo">
+  <a class="mono" href="../" target="_blank" rel="noopener noreferrer">GCC</a>
+  <p class="olho">Área do comprador</p>
+  <h1 id="titulo">Sua <span>área</span></h1>
+  <p class="sub" id="subtitulo">Carregando…</p>
+</div></header>
+
+<main class="miolo">
+  <section id="sem-chave" class="cartao" hidden>
+    <h2>Abra pelo link do e-mail</h2>
+    <p>Esta página abre pelo link que chegou no seu e-mail depois do pagamento. Por segurança, o link some da barra de endereço: para abrir em outro aparelho, use o link do e-mail de novo. Não achou o e-mail? Olhe o spam.</p>
+    <a class="pilula fina" href="https://wa.me/5511982663987" target="_blank" rel="noopener noreferrer">Falar com o suporte</a>
+  </section>
+
+  <section id="erro" class="cartao" hidden>
+    <h2>Não deu para abrir</h2>
+    <p id="erro-texto"></p>
+    <button class="pilula" id="tentar" type="button" hidden>Tentar de novo</button>
+    <a class="pilula fina" href="https://wa.me/5511982663987" target="_blank" rel="noopener noreferrer">Falar com o suporte</a>
+  </section>
+
+  <div id="conteudo" hidden>
+    <section class="cartao">
+      <h2 id="produto">Grand Cheat Code</h2>
+      <p>Licença <span class="licenca" id="licenca"></span></p>
+      <p id="dono"></p>
+      <span class="teste" id="selo-teste" hidden>compra de teste</span>
+    </section>
+
+    <section class="cartao">
+      <h2>1. Baixe o seu pacote</h2>
+      <p id="pacote-de">O arquivo sai com o seu nome e a sua licença em cada página.</p>
+      <button class="pilula" id="baixar" type="button">Baixar meu pacote</button>
+      <p class="aviso" id="baixar-aviso" aria-live="polite"></p>
+      <p class="aviso">No celular o arquivo vai para Arquivos ou Downloads. A instalação é feita no computador.</p>
+    </section>
+
+    <section class="cartao">
+      <h2>2. Instale</h2>
+      <ol>
+        <li>Descompacte o arquivo.</li>
+        <li>Abra o <b>COMECE-AQUI.md</b> (qualquer editor de texto abre; se preferir, anexe numa conversa do Claude e peça para ele te guiar).</li>
+        <li>A instalação é feita no computador (Mac ou Windows).</li>
+      </ol>
+    </section>
+
+    <section class="cartao" id="bloco-grupo" hidden>
+      <h2>3. Entre no grupo dos fundadores</h2>
+      <p>Avisos, ajuda na instalação e suporte acontecem lá, no WhatsApp.</p>
+      <a class="pilula" id="grupo" href="#" target="_blank" rel="noopener noreferrer">Entrar no grupo</a>
+      <a class="pilula fina" id="cidade" href="../cidade/" target="_blank" rel="noopener noreferrer" hidden>Abrir o mapa da Vibe City</a>
+    </section>
+  </div>
+</main>
+
+<footer><div class="miolo">
+  <p>O link desta área é só seu: não compartilhe. <button type="button" id="sair">Fechar a área</button></p>
+  <p>Grand Cheat Code · por Gustavo Fonseca · GFV.</p>
+</div></footer>
+
+<script>
+// Preenchido quando o projeto do Supabase existir: https://<ref>.supabase.co/functions/v1
+const FUNCOES = "";
+const GUARDA = "gcc-area";
+
+const $ = (id) => document.getElementById(id);
+// sessionStorage, não localStorage: a chave some quando a aba fecha e outras páginas do site (que têm medição) não a leem depois.
+function guardar(t){ try{ sessionStorage.setItem(GUARDA, t) }catch(e){} }
+function lerGuardada(){ try{ return sessionStorage.getItem(GUARDA) }catch(e){ return null } }
+function esquecer(){ try{ sessionStorage.removeItem(GUARDA); localStorage.removeItem(GUARDA) }catch(e){} }
+
+// A chave vem no fragmento (#t=...), que o navegador não manda para servidor nenhum. Sai da barra de endereço na hora.
+let chave = null;
+const achada = location.hash.match(/(?:^#|&)t=([A-Za-z0-9_-]{43})(?:&|$)/);
+if (achada) {
+  chave = achada[1];
+  guardar(chave);
+  history.replaceState(null, "", location.pathname + location.search);
+} else {
+  chave = lerGuardada();
+}
+
+async function chamar(corpo){
+  const r = await fetch(FUNCOES + "/area", {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify(corpo), referrerPolicy: "no-referrer", cache: "no-store",
+  });
+  const dados = await r.json().catch(() => ({}));
+  return { ok: r.ok, status: r.status, dados };
+}
+
+function mostrarErro(texto, podeTentar){
+  $("subtitulo").textContent = "";
+  $("erro-texto").textContent = texto;
+  $("tentar").hidden = !podeTentar;
+  $("erro").hidden = false;
+}
+
+function preencher(d){
+  $("titulo").innerHTML = "";
+  $("titulo").append("Oi, ");
+  const s = document.createElement("span"); s.textContent = d.primeiro_nome || "fundador"; $("titulo").append(s, ".");
+  $("subtitulo").textContent = "Pagamento confirmado. Seu pacote está pronto.";
+  $("produto").textContent = d.produto;
+  $("licenca").textContent = d.licenca;
+  $("dono").textContent = "Licenciado para " + d.nome + ". Uso pessoal.";
+  $("selo-teste").hidden = !d.teste;
+  if (d.pacote_de) {
+    const [a, m, dia] = d.pacote_de.split("-");
+    $("pacote-de").textContent = "Pacote de " + dia + "/" + m + ". O arquivo sai com o seu nome e a sua licença em cada página. Quando sair conteúdo novo, é só baixar de novo aqui.";
+  } else {
+    $("pacote-de").textContent = "O pacote ainda está sendo preparado. Volte em alguns minutos ou chame no grupo.";
+    $("baixar").hidden = true;
+  }
+  if (d.grupo) { $("grupo").href = d.grupo; $("bloco-grupo").hidden = false; }
+  if (d.cidade) { $("cidade").hidden = false; }
+  $("conteudo").hidden = false;
+}
+
+async function iniciar(){
+  if (!chave) { $("subtitulo").textContent = ""; $("sem-chave").hidden = false; return; }
+  if (!FUNCOES) { mostrarErro("A área ainda não foi ligada. Fale com o suporte."); return; }
+  $("erro").hidden = true;
+  $("subtitulo").textContent = "Carregando…";
+  try {
+    const r = await chamar({ t: chave });
+    if (r.ok) return preencher(r.dados);
+    if (r.status === 404) { esquecer(); return mostrarErro(r.dados.erro || "Este link não abre mais. Fale com o suporte."); }
+    mostrarErro(r.dados.erro || "Tente de novo em instantes.", true);
+  } catch (e) {
+    mostrarErro("Não deu para falar com o servidor. Confira a internet e tente de novo.", true);
+  }
+}
+
+$("baixar").addEventListener("click", async () => {
+  const b = $("baixar"), aviso = $("baixar-aviso");
+  b.disabled = true; aviso.className = "aviso"; aviso.textContent = "Preparando o seu pacote…";
+  try {
+    const r = await chamar({ t: chave, acao: "baixar" });
+    if (r.ok && r.dados.url) {
+      aviso.textContent = "Download começando. Confira a pasta de downloads.";
+      location.assign(r.dados.url);
+      await new Promise((ok) => setTimeout(ok, 20000)); // evita três cliques seguidos gastarem três downloads
+    } else {
+      aviso.className = "aviso erro"; aviso.textContent = r.dados.erro || "Não deu. Tente de novo em instantes.";
+    }
+  } catch (e) {
+    aviso.className = "aviso erro"; aviso.textContent = "Sem conexão. Tente de novo em instantes.";
+  } finally { b.disabled = false; }
+});
+
+$("tentar").addEventListener("click", iniciar);
+$("sair").addEventListener("click", () => { esquecer(); chave = null; location.replace(location.pathname); });
+
+iniciar();
+</script>
+</body>
+</html>
