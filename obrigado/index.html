@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bem-vindo, fundador — Grand Cheat Code</title>
+<meta name="description" content="Pagamento confirmado. O que acontece agora com o seu Grand Cheat Code.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Changa+One&family=Josefin+Sans:wght@400;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Página de obrigado: para onde o Stripe manda quem pagou. Estática, sem dado de comprador. */
+:root{
+  --noite:#0c0d1b; --noite2:#14152b; --creme:#fff0c9; --lilas:#ccc2f5; --lilas2:#e5ddff;
+  --rosa:#ffb2c6; --rosa-tinta:#663b56; --pink:#ff5fa2; --ambar:#ffd27a; --verde:#8ff0c8;
+  --por-do-sol:linear-gradient(100deg,#ffd27a 0%,#ff9a4d 26%,#ff5fa2 60%,#8b5cf6 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--noite);color:#fff;font-family:"Jost",Helvetica,Arial,sans-serif;font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.miolo{max-width:900px;margin:0 auto;padding:0 20px}
+.deco{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.16em}
+.olho{font-size:13px;color:var(--rosa)}
+.topo{position:relative;overflow:hidden;background:linear-gradient(180deg,#6f63c9 0%,#a07bd8 34%,#e79ac6 62%,#ffc59a 100%)}
+.topo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.topo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,27,.55) 0%,rgba(12,13,27,.2) 35%,rgba(12,13,27,.75) 75%,var(--noite) 100%)}
+.topo .miolo{position:relative;z-index:1;padding-top:26px;padding-bottom:40px}
+.mono{font-family:"Changa One","Barlow Condensed",sans-serif;font-size:27px;text-decoration:none}
+.selo{display:flex;width:fit-content;gap:10px;align-items:center;margin-top:90px;padding:9px 16px 8px;border-radius:999px;background:rgba(12,13,27,.66);border:1px solid rgba(143,240,200,.5);color:var(--verde);font-size:12px}
+.selo svg{width:16px;height:16px}
+h1{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;line-height:1.02;font-size:clamp(38px,7vw,78px);margin:16px 0 10px;text-shadow:0 4px 30px rgba(50,20,90,.5)}
+h1 span{display:block;background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:clamp(17px,1.8vw,20px);max-width:560px;text-shadow:0 2px 16px rgba(20,8,50,.7)}
+main{padding:30px 0 70px}
+.passos{display:grid;gap:12px}
+.passo{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;padding:22px 22px 22px 20px;border-radius:20px;background:var(--noite2);border:1px solid rgba(204,194,245,.16)}
+.passo.feito{border-color:rgba(143,240,200,.45)}
+.passo b.n{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:54px;line-height:.85;background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent}
+.passo.feito b.n{background:none;color:var(--verde)}
+.passo h2{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;line-height:1.02;color:var(--creme)}
+.passo p{margin-top:6px;font-size:16px;color:var(--lilas2)}
+.passo a{color:var(--rosa)}
+.pilula{display:inline-block;background:var(--rosa);color:var(--rosa-tinta);font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px;text-decoration:none;box-shadow:0 0 34px rgba(255,178,198,.28)}
+.pilula.fina{background:transparent;color:var(--rosa);border:1px solid rgba(255,178,198,.5);box-shadow:none}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.nota{margin-top:30px;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.04);font-size:14.5px;color:var(--lilas)}
+.nota li{margin-left:18px;margin-top:4px}
+footer{padding:26px 0 40px;font-size:13px;color:#8f8ab8;border-top:1px solid rgba(204,194,245,.12)}
+@media (max-width:560px){
+  .passo{grid-template-columns:44px 1fr;gap:12px;padding:18px 16px}
+  .passo b.n{font-size:40px}
+  .passo h2{font-size:23px}
+  .selo{margin-top:60px}
+  .acoes .pilula{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+<header class="topo">
+  <img src="../img/panorama.jpg" alt="">
+  <div class="miolo">
+    <a class="mono" href="../">GCC</a>
+    <div class="selo deco"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pagamento confirmado</div>
+    <h1>Bem-vindo, <span>fundador.</span></h1>
+    <p class="sub">Sua licença do Grand Cheat Code está sendo preparada. Veja o que acontece agora.</p>
+  </div>
+</header>
+
+<main>
+  <div class="miolo">
+    <div class="passos">
+      <div class="passo feito"><b class="n">✓</b><div><h2>Pagamento confirmado</h2><p>O Stripe aprovou o seu pagamento. Daqui em diante, tudo chega pelo WhatsApp.</p></div></div>
+      <div class="passo"><b class="n">1</b><div><h2>Você recebe o pacote</h2><p>Em até 1 hora (das 11h às 23h, horário de Brasília), pelo WhatsApp do telefone que você informou no pagamento. Fora desse horário, na manhã seguinte. Chega um arquivo com a sua licença numerada.</p></div></div>
+      <div class="passo"><b class="n">2</b><div><h2>Instale pelo Comece Aqui</h2><p>Descompacte o arquivo e abra o <b>COMECE-AQUI.md</b>. A instalação é feita no computador (Mac ou Windows). A assinatura paga do Claude não está incluída.</p></div></div>
+      <div class="passo"><b class="n">3</b><div><h2>Entre na Praça</h2><p>O convite para o Discord fechado dos fundadores vem junto com o pacote.</p></div></div>
+      <div class="passo"><b class="n">4</b><div><h2>Instalação ao vivo</h2><p>Quinta, 12/11, às 20h. O link sai na Praça.</p></div></div>
+    </div>
+
+    <div class="acoes">
+      <a class="pilula" href="../cidade/">Abrir o mapa da Vibe City</a>
+      <a class="pilula fina" id="zap" href="https://wa.me/5511982663987">Falar com a GFV no WhatsApp</a>
+    </div>
+
+    <div class="nota">
+      <p class="deco olho">Bom saber</p>
+      <ul>
+        <li>As próximas entregas chegam pelo mesmo canal: 18/11, 25/11, 02/12 e 09/12.</li>
+        <li>A licença é pessoal: cada arquivo leva o seu número.</li>
+        <li>Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer><div class="miolo">Grand Cheat Code · por Gustavo Fonseca · GFV. Produto independente, sem vínculo com estúdios ou franquias de jogos.</div></footer>
+<script>
+document.getElementById("zap").href = "https://wa.me/5511982663987?text=" + encodeURIComponent("Comprei o Grand Cheat Code e tenho uma dúvida");
+</script>
+</body>
+</html>
