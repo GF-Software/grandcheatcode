@@ -331,6 +331,117 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
   .edicao .preco{font-size:80px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.surge{opacity:1;transform:none}}
+
+/* ===== versão enxuta: menos texto, mais visual ===== */
+.panorama .curta{font-size:clamp(17px,1.7vw,21px)}
+.centro{text-align:center}
+.centro h2,.centro .sub{margin-left:auto;margin-right:auto}
+.frase{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(20px,2.4vw,30px);line-height:1.2;margin-top:44px;max-width:900px}
+.frase span{background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent}
+.centro .frase{margin-left:auto;margin-right:auto}
+
+/* problema: quatro quebras */
+.quebras{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.quebra{border-radius:20px;padding:26px 22px 24px;background:var(--noite2);border:1px solid rgba(255,95,162,.28);position:relative;overflow:hidden}
+.quebra::before{content:"";position:absolute;inset:auto -30% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,95,162,.22),transparent 70%)}
+.quebra .x{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(255,95,162,.14);margin-bottom:18px}
+.quebra .x svg{width:22px;height:22px}
+.quebra p{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:27px;line-height:1.02;color:var(--creme)}
+
+/* como: três passos com seta */
+.passos{display:grid;grid-template-columns:1fr 46px 1fr 46px 1fr;align-items:center;margin-top:44px}
+.pz{text-align:center;padding:30px 18px;border-radius:22px;background:var(--noite2);border:1px solid rgba(204,194,245,.16)}
+.pz b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:72px;line-height:.9;background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pz span{display:block;margin-top:10px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;line-height:1;color:var(--creme)}
+.flecha{height:2px;background:var(--pink);position:relative;margin:0 8px}
+.flecha::after{content:"";position:absolute;right:0;top:-4px;width:10px;height:10px;border-right:2px solid var(--pink);border-top:2px solid var(--pink);transform:rotate(45deg)}
+.modos{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.modo{display:flex;gap:10px;align-items:center;padding:12px 20px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(204,194,245,.2);font-size:16px;color:var(--lilas2)}
+.modo b{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:21px;color:var(--creme)}
+.modo i{width:10px;height:10px;border-radius:3px;flex:none}
+
+/* método: quatro verbos */
+.verbos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.verbo{border-radius:22px;padding:28px 22px;background:var(--noite2);border:1px solid rgba(204,194,245,.16);position:relative}
+.verbo .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(255,210,122,.18),rgba(139,92,246,.22));margin-bottom:16px}
+.verbo .ic svg{width:26px;height:26px}
+.verbo small{position:absolute;right:20px;top:22px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px;color:#4b4775}
+.verbo h3{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:38px;line-height:1;color:var(--creme)}
+.verbo p{margin-top:6px;font-size:15.5px;color:var(--lilas)}
+.assina{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-top:46px;padding:28px 32px;border-radius:24px;background:linear-gradient(var(--noite2),var(--noite2)) padding-box,var(--por-do-sol) border-box;border:2px solid transparent}
+.assina .aspas{font-family:"Josefin Sans",sans-serif;font-weight:700;font-size:90px;line-height:.6;background:var(--por-do-sol);-webkit-background-clip:text;background-clip:text;color:transparent;padding-top:30px}
+.assina blockquote{font-family:"Josefin Sans",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(19px,2.1vw,27px);line-height:1.25}
+.assina cite{display:block;margin-top:10px;font-style:normal;font-size:15px;color:var(--rosa)}
+
+/* banca: o formato do veredito */
+.banca2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;margin-top:40px;align-items:stretch}
+.rostos{display:grid;gap:10px}
+.rosto{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center;padding:12px 16px;border-radius:16px;background:var(--noite2);border:1px solid rgba(204,194,245,.14)}
+.rosto .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:24px;color:var(--noite)}
+.rosto b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:24px;line-height:1;color:var(--creme)}
+.rosto span{font-size:14.5px;color:var(--lilas)}
+.rosto.chefe{border-color:rgba(255,210,122,.5)}
+.term{border-radius:20px;background:#07070f;border:1px solid rgba(204,194,245,.2);overflow:hidden;display:flex;flex-direction:column}
+.term .topo{display:flex;gap:7px;padding:13px 16px;border-bottom:1px solid rgba(204,194,245,.12)}
+.term .topo i{width:11px;height:11px;border-radius:50%;background:#2c2b4a}
+.term .topo i:nth-child(1){background:#ff5f7a}.term .topo i:nth-child(2){background:#ffd27a}.term .topo i:nth-child(3){background:#5fe0d8}
+.term pre{flex:1;margin:0;padding:22px 22px 26px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14.5px;line-height:1.75;color:var(--lilas2);white-space:pre-wrap}
+.term .v{color:#fff;font-weight:700}.term .r{color:#ff6f9a}.term .ok{color:#5fe0d8}.term .c{color:#6f6d92}
+.term .tag{align-self:flex-start;margin:0 22px 22px;font-family:"Josefin Sans",sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 13px 6px;border-radius:999px;background:rgba(143,240,200,.1);color:#8ff0c8}
+
+/* pacotes: cartões de cheat */
+.cheats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.cheats .cartao{min-height:300px;padding:20px}
+.cheats .cartao.largo{grid-column:span 2}
+.cheats .cartao h3{font-size:36px}
+.cheats .cartao p{font-size:15px}
+.cheats .trava::after{background:linear-gradient(180deg,rgba(12,13,27,.35) 0%,rgba(12,13,27,.82) 55%,rgba(12,13,27,.97) 100%)}
+.cheats .trava img{filter:saturate(.55)}
+.cadeado{position:absolute;right:18px;top:18px;z-index:2;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(12,13,27,.7);backdrop-filter:blur(6px)}
+.cadeado svg{width:16px;height:16px}
+
+/* prefeitura: corrente de agentes */
+.cadeia{display:flex;align-items:flex-start;justify-content:space-between;gap:4px;margin-top:42px;position:relative}
+.cadeia::before{content:"";position:absolute;left:5%;right:5%;top:44px;height:2px;background:repeating-linear-gradient(90deg,var(--pink) 0 10px,transparent 10px 18px)}
+.elo{position:relative;flex:1;text-align:center;min-width:0}
+.elo .bola{width:88px;height:88px;margin:0 auto;border-radius:50%;overflow:hidden;border:3px solid var(--noite);box-shadow:0 0 0 2px rgba(255,95,162,.6);background:#3a2f6b;position:relative}
+.elo .bola img{width:100%;height:100%;object-fit:cover}
+.elo .bola.voce{display:grid;place-items:center;background:var(--por-do-sol);font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:22px;color:var(--noite);text-transform:uppercase}
+.elo b{display:block;margin-top:10px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:19px;line-height:1.05;color:var(--creme)}
+.elo small{display:block;font-size:12.5px;color:var(--lilas);line-height:1.25;margin-top:2px}
+.elo.ja .bola{box-shadow:0 0 0 2px #8ff0c8}
+.selo-data{display:inline-block;font-family:"Josefin Sans",sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 13px 6px;border-radius:999px;background:rgba(255,210,122,.1);color:var(--ambar)}
+.selo-data.ja{background:rgba(143,240,200,.1);color:#8ff0c8}
+
+/* vibe city enxuta */
+.mapa.leve .quadra{padding:16px 18px 18px}
+.mapa.leve .quadra h3{font-size:28px;margin:0}
+
+@media (max-width:860px){
+  .quebras,.verbos{grid-template-columns:1fr 1fr}
+  .quebra p{font-size:22px}.verbo h3{font-size:30px}
+  .passos{grid-template-columns:1fr;gap:0}
+  .flecha{width:2px;height:28px;margin:0 auto}.flecha::after{right:-4px;top:auto;bottom:0;transform:rotate(135deg)}
+  .pz{padding:20px 14px}.pz b{font-size:52px}.pz span{font-size:24px}
+  .assina{grid-template-columns:1fr;padding:22px;gap:6px}.assina .aspas{font-size:64px;padding-top:20px}
+  .banca2{grid-template-columns:1fr}
+  .term pre{font-size:12.5px;padding:18px}
+  .cheats{grid-template-columns:1fr 1fr}
+  .cheats .cartao{min-height:230px;padding:15px}
+  .cheats .cartao h3{font-size:27px}.cheats .cartao p{font-size:13.5px}
+  .cheats .cartao .lugar{font-size:10px}
+  .cadeia{flex-wrap:wrap;justify-content:center;row-gap:20px}
+  .cadeia::before{display:none}
+  .elo{flex:0 0 25%}
+  .elo .bola{width:64px;height:64px}.elo b{font-size:16px}.elo small{display:none}
+  .mapa.leve .quadra{grid-template-columns:62px 1fr;align-items:center}
+  .mapa.leve .quadra .data{grid-row:auto}
+  .mapa.leve .quadra h3{font-size:24px}
+}
+@media (max-width:420px){
+  .cheats .cartao.largo{grid-column:span 2}
+  .quebra{padding:20px 16px}.quebra p{font-size:19px;overflow-wrap:anywhere}
+}
 </style>
 </head>
 <body class="carregando">
@@ -411,105 +522,46 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
   <img data-arte="panorama" alt="" hidden>
   <p class="olho deco">Skills para quem desenvolve com IA</p>
   <h1>Instale no Claude os critérios de um engenheiro para construir e revisar projetos</h1>
-  <p>O Grand Cheat Code reúne skills criadas por Gustavo Fonseca para orientar a organização, o planejamento, o desenvolvimento e a revisão com IA, com opções prontas para usar ou configurar.</p>
+  <p class="curta">Skills criadas por Gustavo Fonseca, prontas para usar ou configurar.</p>
   <div class="relogio" id="relogio">
     <div><b id="d">--</b><small>dias</small></div><div><b id="h">--</b><small>horas</small></div><div><b id="m">--</b><small>min</small></div><div><b id="s">--</b><small>seg</small></div>
     <div class="fim"><b>Encerrado</b></div>
   </div>
   <div class="ate deco" data-antes="lançamento · 11/11 às 11h11" data-aberto="até fechar · 18/11 às 11h11" data-encerrado="a venda fechou em 18/11 às 11h11">lançamento · 11/11 às 11h11</div>
-  <a class="pilula branca" href="#oque">Conhecer as skills</a>
+  <a class="pilula branca" href="#problema">Conhecer as skills</a>
 </div>
 </div>
 <span class="marco" id="tese"></span>
 </div>
 
-<section id="oque">
-  <div class="miolo">
-    <p class="olho deco surge">Conheça o Grand Cheat Code</p>
-    <h2 class="surge">Um conjunto de skills <span>para instalar no Claude</span></h2>
-    <div class="texto surge">
-      <p>Skills são arquivos de instruções que orientam como o Claude realiza determinadas tarefas.</p>
-      <p>No Grand Cheat Code, elas são organizadas em pacotes baseados no método de trabalho de Gustavo Fonseca.</p>
-    </div>
-    <div class="tres">
-      <div class="caixa surge"><p class="olho deco">Você recebe</p><h3>Skills instaláveis</h3><p>Para tarefas específicas.</p></div>
-      <div class="caixa surge"><p class="olho deco">Você recebe</p><h3>Guia</h3><p>Para começar e configurar.</p></div>
-      <div class="caixa surge"><p class="olho deco">Você recebe</p><h3>Duas trilhas</h3><p>Usar pronto ou personalizar.</p></div>
-    </div>
-    <div class="texto surge"><p class="forte">Não é outra IA. É uma maneira de orientar melhor a IA que você utiliza.</p></div>
-  </div>
-</section>
-
-<section id="como">
-  <div class="miolo">
-    <p class="olho deco surge">Do acesso à prática</p>
-    <h2 class="surge">Escolha uma skill. Instale no Claude. <span>Use no seu projeto.</span></h2>
-    <div class="tres">
-      <div class="caixa surge"><p class="olho deco">01</p><h3>Escolha o que precisa fazer</h3><p>Organizar seu ambiente, desenvolver uma aplicação ou trabalhar em outra etapa disponível.</p></div>
-      <div class="caixa surge"><p class="olho deco">02</p><h3>Instale a skill correspondente</h3><p>Siga as instruções do pacote no aplicativo Claude ou no Claude Code, conforme o recurso.</p></div>
-      <div class="caixa surge"><p class="olho deco">03</p><h3>Execute a tarefa com a skill</h3><p>O Claude passa a contar com as instruções e critérios previstos naquele procedimento.</p></div>
-    </div>
-    <div class="texto surge">
-      <p><b>Quer praticidade?</b> Use a trilha Plug and Play.</p>
-      <p><b>Quer controle?</b> Abra a trilha Por Dentro e ajuste as configurações.</p>
-    </div>
-    <p class="vai surge"><a class="pilula branca" href="#pacotes">Ver os pacotes disponíveis</a></p>
-  </div>
-</section>
-
 <section id="problema">
   <div class="miolo">
     <p class="olho deco surge">Você já consegue construir com IA</p>
     <h2 class="surge">O desafio começa quando <span>tudo precisa funcionar junto</span></h2>
-    <div class="texto surge">
-      <p>Você cria uma aplicação.</p>
-      <p>Depois conecta um banco de dados, adiciona uma API, desenvolve um agente e automatiza um processo.</p>
-      <p>Cada parte parece funcionar.</p>
-      <p>Até precisar conectar tudo.</p>
-      <p>Uma alteração afeta outra funcionalidade. Os dados não batem. Uma integração falha. Uma correção cria um problema novo.</p>
-      <p>Você volta à IA, explica o erro e pede mais uma alteração.</p>
-      <p>E o projeto continua crescendo.</p>
-      <p class="forte">Só que gerar mais código nem sempre resolve um problema que começou na maneira como o projeto foi construído.</p>
+    <div class="quebras">
+      <div class="quebra surge"><div class="x"><svg viewBox="0 0 24 24" fill="none" stroke="#ff5fa2" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div><p>Uma alteração afeta outra funcionalidade</p></div>
+      <div class="quebra surge"><div class="x"><svg viewBox="0 0 24 24" fill="none" stroke="#ff5fa2" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div><p>Os dados não batem</p></div>
+      <div class="quebra surge"><div class="x"><svg viewBox="0 0 24 24" fill="none" stroke="#ff5fa2" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div><p>Uma integração falha</p></div>
+      <div class="quebra surge"><div class="x"><svg viewBox="0 0 24 24" fill="none" stroke="#ff5fa2" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div><p>Uma correção cria um problema novo</p></div>
     </div>
+    <p class="frase surge">Gerar mais código <span>nem sempre resolve.</span></p>
   </div>
 </section>
 
-<section id="interpretacao">
+<section id="oque" class="centro">
   <div class="miolo">
-    <p class="olho deco surge">Além da geração de código</p>
-    <h2 class="surge">Um software pode funcionar na demonstração <span>e ainda não estar pronto para operar</span></h2>
-    <div class="texto surge">
-      <p>A IA pode produzir uma funcionalidade que parece correta.</p>
-      <p>Mas isso não garante que todas as dependências tenham sido consideradas.</p>
-      <ul class="perguntas">
-        <li>Quem pode acessar os dados?</li>
-        <li>O que acontece se uma integração falhar?</li>
-        <li>Como uma alteração interfere nas regras do sistema?</li>
-        <li>Existe alguma informação sensível exposta?</li>
-        <li>O que precisa ser testado antes da publicação?</li>
-      </ul>
-      <p class="forte">A qualidade de uma implementação depende também das perguntas feitas antes, durante e depois da execução.</p>
-      <p>É nesse ponto que entram os critérios de engenharia.</p>
+    <p class="olho deco surge">Conheça o Grand Cheat Code</p>
+    <h2 class="surge">Um conjunto de skills <span>para instalar no Claude</span></h2>
+    <div class="passos surge">
+      <div class="pz"><b>01</b><span>Escolha uma skill</span></div><div class="flecha"></div>
+      <div class="pz"><b>02</b><span>Instale no Claude</span></div><div class="flecha"></div>
+      <div class="pz"><b>03</b><span>Use no seu projeto</span></div>
     </div>
-  </div>
-</section>
-
-<section id="gustavo">
-  <div class="miolo">
-    <p class="olho deco surge">Por Gustavo Fonseca</p>
-    <h2 class="surge">Meu trabalho não é apenas <span>fazer a IA escrever código</span></h2>
-    <div class="texto surge">
-      <p>Sou engenheiro.</p>
-      <p>Uso inteligência artificial para construir soluções, mas meu trabalho não começa quando peço uma nova funcionalidade.</p>
-      <p>Primeiro, tento entender o projeto.</p>
-      <p>Quero saber como a arquitetura foi organizada, onde os dados estão, como a autenticação funciona e quais regras precisam ser respeitadas.</p>
-      <p>Também procuro os cenários em que alguma coisa pode falhar.</p>
-      <p>Quando encontro um problema, não quero que a IA simplesmente saia alterando arquivos.</p>
-      <p>Quero entender a causa, avaliar o impacto da mudança e definir o que será necessário verificar depois.</p>
-      <p class="forte">Porque escrever código e tomar boas decisões de engenharia são competências diferentes.</p>
-      <p>Foi parte dessa maneira de trabalhar que comecei a transformar em skills para Claude.</p>
-      <p>O objetivo do Grand Cheat Code é colocar esses procedimentos à disposição de quem também desenvolve com IA.</p>
+    <div class="modos surge">
+      <span class="modo"><i style="background:var(--ciano)"></i><span>Quer praticidade?</span><b>Plug and Play</b></span>
+      <span class="modo"><i style="background:var(--pink)"></i><span>Quer controle?</span><b>Por Dentro</b></span>
     </div>
+    <p class="frase surge">Não é outra IA. <span>É uma maneira de orientar melhor a IA que você utiliza.</span></p>
   </div>
 </section>
 
@@ -517,15 +569,45 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
   <div class="miolo">
     <p class="olho deco surge">Critérios antes da execução</p>
     <h2 class="surge">Investigar. Planejar. <span>Construir. Validar.</span></h2>
-    <div class="quatro">
-      <div class="caixa surge"><p class="olho deco">01</p><h3>Investigar</h3><p>Entender o contexto existente, identificar dependências e reconhecer possíveis pontos de falha antes de fazer alterações.</p></div>
-      <div class="caixa surge"><p class="olho deco">02</p><h3>Planejar</h3><p>Definir o objetivo, organizar a execução e considerar os impactos das decisões técnicas.</p></div>
-      <div class="caixa surge"><p class="olho deco">03</p><h3>Construir</h3><p>Utilizar a IA para implementar tarefas conforme as instruções, os requisitos e o contexto do projeto.</p></div>
-      <div class="caixa surge"><p class="olho deco">04</p><h3>Validar</h3><p>Conferir o que foi produzido, verificar os critérios aplicáveis e identificar problemas que ainda precisam ser resolvidos.</p></div>
+    <div class="verbos">
+      <div class="verbo surge"><small>01</small><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></div><h3>Investigar</h3><p>Dependências e pontos de falha, antes de alterar.</p></div>
+      <div class="verbo surge"><small>02</small><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#ff9a4d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/><path d="M17 15l2 2 3-4"/></svg></div><h3>Planejar</h3><p>Objetivo, execução e impacto.</p></div>
+      <div class="verbo surge"><small>03</small><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#ff5fa2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div><h3>Construir</h3><p>A IA implementa, com o contexto do projeto.</p></div>
+      <div class="verbo surge"><small>04</small><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>Validar</h3><p>Conferir o que foi produzido.</p></div>
     </div>
-    <div class="texto surge">
-      <p class="forte">Não é pedir que a IA faça menos. É orientar melhor como ela trabalha.</p>
-      <p>Os procedimentos disponíveis dependem do pacote utilizado.</p>
+    <div class="assina surge">
+      <span class="aspas">“</span>
+      <div><blockquote>Escrever código e tomar boas decisões de engenharia são competências diferentes.</blockquote><cite>Gustavo Fonseca, engenheiro</cite></div>
+    </div>
+  </div>
+</section>
+
+<section id="banca">
+  <div class="miolo">
+    <p class="olho deco surge">Antes de considerar concluído</p>
+    <h2 class="surge">Cinco perspectivas para revisar <span>o trabalho produzido</span></h2>
+    <div class="banca2">
+      <div class="rostos">
+        <div class="rosto surge"><span class="av" style="background:linear-gradient(160deg,#ffc0d6,#ff5fa2)">H</span><div><b>Hacker</b><span>vulnerabilidades e segurança</span></div></div>
+        <div class="rosto surge"><span class="av" style="background:linear-gradient(160deg,#ffe0a6,#ff9a4d)">C</span><div><b>Confuso</b><span>quem não conhece a aplicação</span></div></div>
+        <div class="rosto surge"><span class="av" style="background:linear-gradient(160deg,#d9ccff,#8b5cf6)">S</span><div><b>Sênior</b><span>qualidade técnica</span></div></div>
+        <div class="rosto surge"><span class="av" style="background:linear-gradient(160deg,#b4f4ee,#5fe0d8)">T</span><div><b>Testador</b><span>falhas e comportamentos inesperados</span></div></div>
+        <div class="rosto chefe surge"><span class="av" style="background:var(--por-do-sol)">★</span><div><b>Chefe</b><span>a entrega bate com o pedido?</span></div></div>
+      </div>
+      <div class="term surge">
+        <div class="topo"><i></i><i></i><i></i></div>
+<pre><span class="c">// o formato que a banca entrega</span>
+<span class="v">VEREDITO:</span> <span class="ok">APROVADO PARA SUBIR</span> | <span class="r">REPROVADO</span>
+
+<span class="v">Corrigir</span> (do mais grave ao menos):
+1. <span class="r">bloqueia</span> · arquivo:linha · o que acontece · prova
+2. corrigir antes · ...
+
+Suspeitas (sem prova): ...
+Não foi conferido: ...
+<span class="v">Próximo passo:</span> uma linha.</pre>
+        <span class="tag">11/11 · já no acesso inicial</span>
+      </div>
     </div>
   </div>
 </section>
@@ -534,111 +616,34 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
   <div class="miolo">
     <p class="olho deco surge">Habilidades para cada etapa</p>
     <h2 class="surge">Comece pelo que seu trabalho <span>precisa agora</span></h2>
-    <div class="vitrine">
-      <article class="cartao largo surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 40%,#f7b2c4 62%)"><img data-arte="c1" alt="" hidden><span class="data ja">11/11 · acesso inicial</span><span class="lugar">Bairro Plug and Play</span><h3>Organização</h3><p><b>Menos informações espalhadas. Mais continuidade no trabalho com IA.</b> Organize o ambiente em que você utiliza o Claude. Memória, Formato de resposta e Primeiro projeto funcionam no aplicativo, sem terminal. Faxina, Pastas e projetos e Pelo celular pedem o Claude Code.</p><ul><li>Faxina</li><li>Pastas e projetos</li><li>Memória</li><li>Formato de resposta</li><li>Pelo celular</li><li>Primeiro projeto</li></ul></article>
-      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#ffd9a0,#ff9fb0 45%,#c77be0 62%);--px:6%;--sx:66%"><img data-arte="c2" alt="" hidden><span class="data ja">11/11 · acesso inicial</span><span class="lugar">Portão</span><h3>Comece aqui</h3><p><b>Configure o necessário antes de acumular mais ferramentas.</b> Um guia para entender o ambiente, escolher os serviços adequados e começar a utilizar as skills.</p><ul><li>Assinaturas</li><li>10 conceitos</li><li>Instalação inicial</li><li>Perfil</li></ul></article>
-      <article class="cartao largo surge" style="--ceu:linear-gradient(180deg,#9a86ea,#e58fc0 45%,#ffc58a 62%);--px:6%;--sx:62%"><img data-arte="t8" alt="" hidden><span class="data ja">11/11 · acesso inicial</span><span class="lugar">Tribunal</span><h3>Banca de 5 revisores</h3><p><b>Cinco perspectivas para revisar o trabalho produzido.</b> Cada revisor procura um tipo de problema antes da publicação.</p><ul><li>Hacker</li><li>Confuso</li><li>Sênior</li><li>Testador</li><li>Chefe</li></ul></article>
-      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#5d4bb8,#c468c2 42%,#ff9a6b 62%);--px:60%;--sx:30%"><img data-arte="c3" alt="" hidden><span class="data">Liberação prevista: 18/11</span><span class="lugar">Oficina + Distrito Financeiro</span><h3>Vibe coding</h3><p><b>Organize melhor o caminho entre gerar código e colocar uma aplicação no ar.</b> Modelos e configurações adequados a cada tarefa.</p><ul><li>Escolha de modelo</li><li>Tokens</li><li>Custo</li><li>Modo automático</li><li>Orquestrador</li></ul></article>
-      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#f3b8cf,#c59cf0 45%,#7d6fe6 62%);--px:4%;--sx:60%"><img data-arte="c4" alt="" hidden><span class="data">Liberação prevista: 25/11</span><span class="lugar">Cofre</span><h3>Segurança</h3><p><b>Considere os riscos que não aparecem na interface.</b> As skills apoiam o trabalho, mas não substituem testes e auditorias profissionais quando necessários.</p><ul><li>Dados compartilhados</li><li>Chaves fora do código</li><li>Revisão antes da publicação</li></ul></article>
-      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#ffd27a,#ff8f8a 42%,#a45fd6 62%);--px:68%;--sx:34%"><img data-arte="c5" alt="" hidden><span class="data">Bônus previsto: 02/12</span><span class="lugar">Farol</span><h3>Ser encontrado</h3><p><b>Seu projeto também precisa ser descoberto.</b> Indexação e presença do site em mecanismos de busca e sistemas de IA.</p><ul><li>SEO, GEO e AEO</li><li>Search Console</li><li>llms.txt</li><li>Domínio</li></ul></article>
-      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 45%,#f7b2c4 62%);--px:62%;--sx:32%"><img data-arte="p7" alt="" hidden><span class="data">Liberação prevista: 09/12</span><span class="lugar">Prefeitura</span><h3>Time de agentes</h3><p><b>Um fluxo de trabalho com agentes especializados para seus projetos.</b></p><ul><li>Rascunho e requisitos</li><li>Arquitetura</li><li>Sprints com Jira</li><li>Agentes especializados</li></ul></article>
+    <div class="cheats vitrine">
+      <article class="cartao largo surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 40%,#f7b2c4 62%)"><img data-arte="c1" alt="" hidden><span class="data ja">11/11 · acesso inicial</span><span class="lugar">Bairro Plug and Play</span><h3>Organização</h3><p>Menos informações espalhadas. Mais continuidade no trabalho com IA.</p></article>
+      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#ffd9a0,#ff9fb0 45%,#c77be0 62%);--px:6%;--sx:66%"><img data-arte="c2" alt="" hidden><span class="data ja">11/11</span><span class="lugar">Portão</span><h3>Comece aqui</h3><p>Configure o necessário antes de acumular ferramentas.</p></article>
+      <article class="cartao surge" style="--ceu:linear-gradient(180deg,#9a86ea,#e58fc0 45%,#ffc58a 62%);--px:6%;--sx:62%"><img data-arte="t8" alt="" hidden><span class="data ja">11/11</span><span class="lugar">Tribunal</span><h3>Banca de 5 revisores</h3><p>Cada revisor procura um tipo de problema antes da publicação.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#5d4bb8,#c468c2 42%,#ff9a6b 62%);--px:60%;--sx:30%"><img data-arte="c3" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">18/11</span><span class="lugar">Oficina</span><h3>Vibe coding</h3><p>Do código gerado à aplicação no ar.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#f3b8cf,#c59cf0 45%,#7d6fe6 62%);--px:4%;--sx:60%"><img data-arte="c4" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">25/11</span><span class="lugar">Cofre</span><h3>Segurança</h3><p>Os riscos que não aparecem na interface.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#ffd27a,#ff8f8a 42%,#a45fd6 62%);--px:68%;--sx:34%"><img data-arte="c5" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">Bônus · 02/12</span><span class="lugar">Farol</span><h3>Ser encontrado</h3><p>Seu projeto também precisa ser descoberto.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 45%,#f7b2c4 62%);--px:62%;--sx:32%"><img data-arte="p7" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">09/12</span><span class="lugar">Prefeitura</span><h3>Time de agentes</h3><p>Agentes especializados para seus projetos.</p></article>
     </div>
   </div>
 </section>
 
-<section id="trilhas">
+<section id="prefeitura" class="centro">
   <div class="miolo">
-    <p class="olho deco surge">Um produto, dois modos de usar</p>
-    <h2 class="surge">Instale do jeito mais simples. <span>Ou explore cada configuração.</span></h2>
-    <div class="duas">
-      <div class="caixa surge"><p class="olho deco">Trilha 1</p><h3>Plug and Play</h3><p><b>Pronto para usar.</b> Acesse as skills com configurações preparadas e siga as instruções de instalação. Para quem quer aplicar os procedimentos sem precisar compreender toda a estrutura interna primeiro.</p></div>
-      <div class="caixa surge"><p class="olho deco">Trilha 2</p><h3>Por Dentro</h3><p><b>Entenda e personalize.</b> Explore as configurações, descubra as decisões incorporadas ao procedimento e faça os ajustes necessários. Para quem quer compreender melhor como a skill funciona e adaptar sua utilização.</p></div>
-    </div>
-    <div class="texto surge"><p class="forte">As duas trilhas valem para toda skill do pacote. Você escolhe como deseja trabalhar.</p></div>
-  </div>
-</section>
-
-<section id="caminho">
-  <div class="miolo">
-    <p class="olho deco surge">O caminho de desenvolvimento</p>
-    <h2 class="surge">Cada etapa do projeto <span>exige um tipo de decisão</span></h2>
-    <div class="trilho surge">
-      <div class="passo pro"><small>01</small>Ideia</div><div class="passo pro"><small>02</small>Rascunho</div><div class="passo pro"><small>03</small>Requisitos</div><div class="passo pro"><small>04</small>Arquitetura</div><div class="passo pro"><small>05</small>Sprints</div>
-      <div class="passo base"><small>06</small>Construção</div><div class="passo base"><small>07</small>Revisão</div><div class="passo base"><small>08</small>Segurança</div><div class="passo base"><small>09</small>No ar</div>
-    </div>
-    <p class="sub surge" style="margin-top:26px">O Grand Cheat Code organiza habilidades para apoiar etapas desse percurso.</p>
-    <div class="legenda surge"><span><i style="background:var(--ciano)"></i>De 11/11 a 02/12: organização, construção, revisão, segurança e no ar</span><span><i style="background:var(--pink)"></i>Em 09/12, a Prefeitura: rascunho, requisitos, arquitetura, sprints e agentes especializados</span></div>
-  </div>
-</section>
-
-<section id="prefeitura">
-  <div class="miolo">
-    <p class="olho deco surge">Prefeitura · liberação prevista: 09/12</p>
+    <span class="selo-data surge">Prefeitura · 09/12</span>
     <h2 class="surge">Um fluxo de trabalho com agentes <span>especializados para seus projetos</span></h2>
-    <p class="sub surge">Em vez de conduzir todas as atividades em uma única conversa, a Prefeitura propõe dividir o processo entre agentes com responsabilidades definidas. Você apresenta a ideia ao Orquestrador. Ele organiza as tarefas e direciona o trabalho aos papéis correspondentes.</p>
-    <div class="fluxo">
-      <div class="etapa"><div class="no surge"><small>Começa aqui</small><b>Você</b><span>apresenta a ideia</span></div></div>
-      <div class="liga surge"><span>a ideia</span></div>
-      <div class="etapa"><article class="agente largo surge"><div class="foto"><img data-arte="t1" alt="" hidden><span class="num">01</span></div><div class="ficha"><h3>Orquestrador<small>o único com quem você fala</small></h3><p class="oque">Recebe o objetivo, organiza as tarefas e acompanha o fluxo.</p><dl><dt>Recebe</dt><dd>sua ideia</dd><dt>Entrega</dt><dd>a lista de tarefas, na ordem</dd></dl></div></article></div>
-      <div class="liga surge"><span>tarefas</span></div>
-      <div class="etapa dois">
-        <article class="agente surge"><div class="foto"><img data-arte="t2" alt="" hidden><span class="num">02</span></div><div class="ficha"><h3>Product Owner<small>dono do produto</small></h3><p class="oque">Ajuda a definir prioridades, requisitos e critérios de conclusão.</p><dl><dt>Recebe</dt><dd>as tarefas</dd><dt>Entrega</dt><dd>um pedido claro, com o que conta como pronto</dd></dl></div></article>
-        <div class="liga-h surge"></div>
-        <article class="agente surge"><div class="foto"><img data-arte="t3" alt="" hidden><span class="num">03</span></div><div class="ficha"><h3>Tech lead<small>líder técnico</small></h3><p class="oque">Analisa arquitetura, dependências e decisões técnicas.</p><dl><dt>Recebe</dt><dd>o pedido</dd><dt>Entrega</dt><dd>o desenho de como construir</dd></dl></div></article>
-      </div>
-      <div class="liga surge"><span>pedido + desenho · os quatro trabalham ao mesmo tempo</span></div>
-      <div class="ramo surge"></div>
-      <div class="etapa quatro">
-        <article class="agente surge"><div class="foto"><img data-arte="t4" alt="" hidden><span class="num">04</span></div><div class="ficha"><h3>UX / UI<small>experiência e visual</small></h3><p class="oque">Cuida da experiência e da definição das interfaces.</p><dl><dt>Recebe</dt><dd>o pedido</dd><dt>Entrega</dt><dd>as telas desenhadas</dd></dl></div></article>
-        <article class="agente surge"><div class="foto"><img data-arte="t5" alt="" hidden><span class="num">05</span></div><div class="ficha"><h3>Back-end<small>o que roda por trás</small></h3><p class="oque">Trabalha com lógica de negócio e integrações.</p><dl><dt>Recebe</dt><dd>o desenho</dd><dt>Entrega</dt><dd>a lógica funcionando</dd></dl></div></article>
-        <article class="agente surge"><div class="foto"><img data-arte="t6" alt="" hidden><span class="num">06</span></div><div class="ficha"><h3>Banco<small>banco de dados</small></h3><p class="oque">Trata estrutura, armazenamento e acesso às informações.</p><dl><dt>Recebe</dt><dd>o desenho</dd><dt>Entrega</dt><dd>tabelas e permissões</dd></dl></div></article>
-        <article class="agente surge"><div class="foto"><img data-arte="t7" alt="" hidden><span class="num">07</span></div><div class="ficha"><h3>Front-end<small>o que você clica</small></h3><p class="oque">Implementa as interfaces utilizadas pelo usuário.</p><dl><dt>Recebe</dt><dd>as telas desenhadas</dd><dt>Entrega</dt><dd>a tela pronta</dd></dl></div></article>
-      </div>
-      <div class="ramo junta surge"></div>
-      <div class="liga surge"><span>trabalho pronto</span></div>
-      <div class="etapa"><article class="agente largo surge"><div class="foto"><img data-arte="t8" alt="" hidden><span class="num">08</span><span class="ja">Tribunal · entregue em 11/11</span></div><div class="ficha"><h3>Revisão<small>a Banca de 5 revisores</small></h3><p class="oque">Avalia o trabalho produzido antes de ele avançar no processo. A banca já vem no acesso inicial, em 11/11.</p><dl><dt>Recebe</dt><dd>o trabalho pronto</dd><dt>Entrega</dt><dd>um veredito e a lista do que corrigir</dd></dl></div></article></div>
-      <div class="saidas">
-        <div class="saida ok surge"><b>Aprovou</b>O trabalho pode avançar para a próxima etapa. Publicar continua sendo decisão sua.</div>
-        <div class="saida nao surge"><b>↺ Reprovou</b>As pendências são registradas e encaminhadas para correção. Depois passa pela banca de novo.</div>
-      </div>
+    <p class="sub surge">Você apresenta a ideia ao Orquestrador. Ele organiza as tarefas e direciona o trabalho aos papéis correspondentes.</p>
+    <div class="cadeia surge">
+      <div class="elo"><div class="bola voce">Você</div><b>A ideia</b><small>começa aqui</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t1" alt="" hidden></div><b>Orquestrador</b><small>organiza as tarefas</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t2" alt="" hidden></div><b>Product Owner</b><small>o que conta como pronto</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t3" alt="" hidden></div><b>Tech lead</b><small>como construir</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t4" alt="" hidden></div><b>UX / UI</b><small>as telas</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t5" alt="" hidden></div><b>Back-end</b><small>a lógica</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t6" alt="" hidden></div><b>Banco</b><small>tabelas e permissões</small></div>
+      <div class="elo"><div class="bola"><img data-arte="t7" alt="" hidden></div><b>Front-end</b><small>a tela pronta</small></div>
+      <div class="elo ja"><div class="bola"><img data-arte="t8" alt="" hidden></div><b>Banca</b><small>veredito · já em 11/11</small></div>
     </div>
-    <div class="texto surge"><p class="forte">Uma divisão de responsabilidades para evitar que todas as decisões sejam tratadas como uma única tarefa.</p></div>
-  </div>
-</section>
-
-<section id="banca">
-  <div class="miolo">
-    <p class="olho deco surge">Antes de considerar concluído</p>
-    <h2 class="surge">Cinco perspectivas para revisar <span>o trabalho produzido</span></h2>
-    <p class="sub surge">A Banca de 5 revisores já vem no acesso inicial, em 11/11, e roda completa no Claude Code.</p>
-    <div class="caixa surge" style="margin-top:36px">
-      <ul class="revisores">
-        <li><b>Hacker</b><span>procura possíveis vulnerabilidades e problemas de segurança.</span></li>
-        <li><b>Confuso</b><span>avalia a experiência de quem não conhece a aplicação.</span></li>
-        <li><b>Sênior</b><span>analisa a qualidade técnica da implementação.</span></li>
-        <li><b>Testador</b><span>procura falhas e comportamentos inesperados.</span></li>
-        <li><b>Chefe</b><span>verifica a correspondência entre a entrega e o que foi solicitado.</span></li>
-      </ul>
-    </div>
-    <div class="texto surge">
-      <p>Se houver problemas, a banca registra as pendências para correção.</p>
-      <p>Quando os critérios aplicáveis forem atendidos, o trabalho pode avançar para a próxima etapa, respeitando as aprovações humanas necessárias.</p>
-      <p class="forte">O objetivo é aumentar o rigor da revisão, não substituir a responsabilidade de quem opera o projeto.</p>
-      <p>A Prefeitura, em 09/12, acrescenta a organização de sprints com Jira.</p>
-    </div>
-  </div>
-</section>
-
-<section id="paraquem">
-  <div class="miolo">
-    <p class="olho deco surge">Para quem já constrói com IA</p>
-    <h2 class="surge">Seja você desenvolvedor ou vibe coder, <span>o próximo passo exige mais do que prompts</span></h2>
-    <div class="tres">
-      <div class="caixa surge"><h3>Você já é desenvolvedor?</h3><p>Utilize as skills para estruturar a delegação de tarefas ao Claude, organizar contexto e aplicar procedimentos ao seu fluxo de trabalho.</p></div>
-      <div class="caixa surge"><h3>Você começou pelo vibe coding?</h3><p>Você já consegue criar aplicações com IA, mas quer desenvolver com mais atenção às decisões que envolvem estrutura, segurança e revisão.</p></div>
-      <div class="caixa surge"><h3>Você cria agentes ou automações?</h3><p>Os princípios de organização, contexto e validação também podem ajudar a orientar seu trabalho, respeitando o escopo e a compatibilidade de cada skill.</p></div>
-    </div>
-    <div class="texto surge"><p class="forte">O Grand Cheat Code não promete transformar alguém em engenheiro de software. Ele oferece procedimentos criados por um engenheiro para trabalhar com IA.</p></div>
   </div>
 </section>
 
@@ -646,30 +651,20 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
   <div class="miolo">
     <p class="olho deco surge">Bem-vindo à Vibe City</p>
     <h2 class="surge">Um universo para quem <span>constrói com inteligência artificial</span></h2>
-    <div class="texto surge">
-      <p>O Grand Cheat Code é o conjunto de habilidades.</p>
-      <p>A Vibe City é o universo conceitual criado para organizar essa experiência.</p>
-      <p>Você começa com as skills disponíveis, explora novos pacotes e avança conforme desenvolve seus projetos.</p>
-      <p>No dia 11/11, a Vibe City é este mapa e a Praça, o Discord fechado dos fundadores.</p>
-    </div>
-    <div class="mapa">
+    <p class="sub surge">No dia 11/11, a Vibe City é este mapa e a Praça, o Discord fechado dos fundadores.</p>
+    <div class="mapa leve">
       <div class="rua v" style="--c:2"></div><div class="rua v" style="--c:4"></div>
       <div class="rua h" style="--r:2;--cor:var(--ciano)"><span>Avenida Plug and Play</span></div>
       <div class="rua h" style="--r:4;--cor:var(--pink)"><span>Avenida Por Dentro</span></div>
-      <article class="quadra surge" style="--c:1;--r:1"><span class="data ja">11/11</span><h3>Portão</h3><p>Comece aqui e Perfil.</p></article>
-      <article class="quadra surge" style="--c:3;--r:1"><span class="data ja">11/11</span><h3>Bairro Plug and Play</h3><p>Faxina, Pastas, Memória, Formato de resposta, Pelo celular e Primeiro projeto.</p></article>
-      <article class="quadra surge" style="--c:5;--r:1"><span class="data ja">11/11</span><h3>Tribunal</h3><p>Banca de 5 revisores.</p></article>
-      <article class="quadra praca surge" style="--c:3;--r:3"><span class="data ja">11/11</span><h3>Praça</h3><p>O Discord fechado dos fundadores. O convite chega com a licença.</p></article>
-      <article class="quadra surge" style="--c:1;--r:3"><span class="data">18/11</span><h3>Oficina</h3><p>Orquestrador, modo automático e construção.</p></article>
-      <article class="quadra surge" style="--c:5;--r:3"><span class="data">18/11</span><h3>Distrito Financeiro</h3><p>Qual modelo, tokens e custo.</p></article>
-      <article class="quadra surge" style="--c:1;--r:5"><span class="data">25/11</span><h3>Cofre</h3><p>Segurança: dados compartilhados, chaves fora do código e revisão antes da publicação.</p></article>
-      <article class="quadra surge" style="--c:3;--r:5"><span class="data">02/12</span><h3>Farol</h3><p>Ser encontrado: SEO, GEO e AEO, Search Console, llms.txt e domínio.</p></article>
-      <article class="quadra surge" style="--c:5;--r:5"><span class="data">09/12</span><h3>Prefeitura</h3><p>Rascunho, requisitos, arquitetura, sprints com Jira e agentes especializados.</p></article>
-    </div>
-    <div class="legenda surge"><span><i style="background:var(--ciano)"></i>Avenida Plug and Play: o SKILL.md de cada skill</span><span><i style="background:var(--pink)"></i>Avenida Por Dentro: o CONFIG.md e o PORQUE.md de cada skill</span></div>
-    <div class="texto surge">
-      <p>Os cheat codes aqui não substituem o seu conhecimento.</p>
-      <p class="forte">Eles representam habilidades e procedimentos que você pode incorporar à maneira como trabalha.</p>
+      <article class="quadra surge" style="--c:1;--r:1"><span class="data ja">11/11</span><h3>Portão</h3></article>
+      <article class="quadra surge" style="--c:3;--r:1"><span class="data ja">11/11</span><h3>Bairro Plug and Play</h3></article>
+      <article class="quadra surge" style="--c:5;--r:1"><span class="data ja">11/11</span><h3>Tribunal</h3></article>
+      <article class="quadra praca surge" style="--c:3;--r:3"><span class="data ja">11/11</span><h3>Praça</h3></article>
+      <article class="quadra surge" style="--c:1;--r:3"><span class="data">18/11</span><h3>Oficina</h3></article>
+      <article class="quadra surge" style="--c:5;--r:3"><span class="data">18/11</span><h3>Distrito Financeiro</h3></article>
+      <article class="quadra surge" style="--c:1;--r:5"><span class="data">25/11</span><h3>Cofre</h3></article>
+      <article class="quadra surge" style="--c:3;--r:5"><span class="data">02/12</span><h3>Farol</h3></article>
+      <article class="quadra surge" style="--c:5;--r:5"><span class="data">09/12</span><h3>Prefeitura</h3></article>
     </div>
     <p class="vai surge"><a class="pilula branca" href="cidade/">Abrir o mapa da cidade</a></p>
   </div>
@@ -688,21 +683,8 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
           <p class="fechou">Venda encerrada em 18/11 às 11h11.</p>
           <p class="sete">Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</p>
         </div>
-        <ul><li>Comece Aqui, Organização e Banca de 5 revisores no acesso inicial</li><li>Vibe Coding em 18/11</li><li>Segurança em 25/11</li><li>Bônus Ser Encontrado em 02/12</li><li>Prefeitura em 09/12: requisitos, arquitetura, sprints com Jira e agentes especializados</li><li>Trilhas Plug and Play e Por Dentro</li><li>Vibe City: o mapa da cidade e a Praça, no Discord</li><li>Sessão de instalação ao vivo em 12/11, às 20h</li><li>Licença pessoal e numerada</li></ul>
+        <ul><li>Comece Aqui, Organização e Banca de 5 revisores no acesso inicial</li><li>Vibe Coding em 18/11</li><li>Segurança em 25/11</li><li>Bônus Ser Encontrado em 02/12</li><li>Prefeitura em 09/12</li><li>Trilhas Plug and Play e Por Dentro</li><li>Vibe City e a Praça, no Discord</li><li>Sessão de instalação ao vivo em 12/11, às 20h</li><li>Licença pessoal e numerada</li></ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="antes">
-  <div class="miolo">
-    <p class="olho deco surge">Requisitos e condições</p>
-    <h2 class="surge">O que você precisa saber <span>antes de começar</span></h2>
-    <div class="precisa">
-      <div class="caixa surge"><h3>Claude é contratado separadamente</h3><p>As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code.</p></div>
-      <div class="caixa surge"><h3>Instalação inicial pelo computador</h3><p>A configuração pode ser feita no Mac ou Windows. Alguns recursos permitem uso posterior pelo celular.</p></div>
-      <div class="caixa surge"><h3>Desenvolvimento com Claude Code</h3><p>Faxina, Pastas e projetos, Pelo celular, a Banca completa e os pacotes de construção pedem o Claude Code instalado.</p></div>
-      <div class="caixa surge"><h3>Para a Prefeitura · 09/12</h3><p>O fluxo com agentes pode consumir mais capacidade do modelo, pede um plano maior do Claude e utiliza Jira para o quadro automatizado.</p></div>
     </div>
   </div>
 </section>
@@ -712,8 +694,8 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
     <p class="olho deco surge">Dúvidas frequentes</p>
     <h2 class="surge">Direto <span>ao ponto</span></h2>
     <details><summary>Preciso saber programar?</summary><p>Não para começar: o guia, o Perfil, a Memória, o Formato de resposta e o Primeiro projeto funcionam no aplicativo, sem terminal. Faxina, Pastas e projetos, Pelo celular, a Banca completa e os pacotes de construção pedem que você instale o Claude Code e podem exigir conhecimentos técnicos adicionais, conforme a complexidade do trabalho.</p></details>
+    <details><summary>O Claude está incluído?</summary><p>Não. As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code. A instalação inicial é feita no computador (Mac ou Windows). A Prefeitura, em 09/12, pede um plano maior do Claude e utiliza Jira para o quadro automatizado.</p></details>
     <details><summary>O Grand Cheat Code é um curso?</summary><p>O núcleo da oferta é um conjunto de skills instaláveis, acompanhado de instruções para utilização e das duas trilhas de aprendizagem.</p></details>
-    <details><summary>O Grand Cheat Code é outra ferramenta de IA?</summary><p>Não. Ele utiliza o Claude como ambiente de execução das skills. A assinatura necessária é separada.</p></details>
     <details><summary>Recebo todos os pacotes no momento da compra?</summary><p>Não. Comece Aqui, Organização e a Banca de 5 revisores fazem parte do acesso inicial. Os demais pacotes entram na sua licença seguindo o calendário de liberação apresentado.</p></details>
     <details><summary>Funciona com Codex ou outras IAs?</summary><p>As skills desta edição são feitas para Claude. Os princípios de engenharia podem ser aplicáveis a outros contextos, mas isso não representa compatibilidade técnica automática.</p></details>
     <details><summary>Posso utilizar nos projetos dos meus clientes?</summary><p>Sim, desde que quem opera seja você, respeitando a licença pessoal. Compartilhar ou redistribuir os arquivos para outras pessoas ou equipes não está incluído nessa licença.</p></details>
@@ -724,15 +706,9 @@ body:not(.carregando) .cena,body:not(.carregando) .logo svg{animation-play-state
 
 <section id="fecho" class="fecho">
   <div class="miolo">
-    <p class="olho deco surge">Grand Cheat Code</p>
+    <p class="olho deco surge">Grand Cheat Code · por Gustavo Fonseca</p>
     <h2 class="surge">Continue construindo com IA. <span>Agora com mais método por trás de cada etapa.</span></h2>
-    <div class="texto surge">
-      <p>Se você já utiliza inteligência artificial para desenvolver, não precisa começar tudo de novo.</p>
-      <p>Pode começar organizando a maneira como trabalha.</p>
-      <p>Instale as skills disponíveis, utilize os procedimentos de Gustavo Fonseca e avance para os próximos pacotes conforme seus projetos exigirem.</p>
-      <p class="forte">Grand Cheat Code · por Gustavo Fonseca, engenheiro</p>
-      <p data-antes="Lançamento: 11/11, às 11h11." data-aberto="Aberto até 18/11, às 11h11." data-encerrado="Encerrado em 18/11, às 11h11.">Lançamento: 11/11, às 11h11.</p>
-    </div>
+    <p class="sub surge" style="margin:0 auto" data-antes="Lançamento: 11/11, às 11h11." data-aberto="Aberto até 18/11, às 11h11." data-encerrado="Encerrado em 18/11, às 11h11.">Lançamento: 11/11, às 11h11.</p>
     <p class="vai surge"><a class="pilula compra" href="#edicoes" aria-disabled="true" data-antes="Abre 11/11 às 11h11" data-aberto="Garantir meu acesso" data-encerrado="Encerrado">Abre 11/11 às 11h11</a></p>
   </div>
 </section>
