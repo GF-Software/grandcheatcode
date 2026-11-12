@@ -44,6 +44,14 @@ ol{margin:8px 0 0 20px;color:var(--lilas2)}
 footer{padding:22px 0 40px;font-size:13px;color:#8f8ab8;border-top:1px solid rgba(204,194,245,.12)}
 footer button{background:none;border:0;color:#8f8ab8;text-decoration:underline;font:inherit;cursor:pointer}
 [hidden]{display:none!important}
+.abas{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.abas button{background:transparent;color:var(--lilas2);border:1px solid rgba(204,194,245,.3);border-radius:999px;padding:8px 14px;font:inherit;font-size:15px;cursor:pointer}
+.abas button[aria-selected="true"]{background:var(--lilas);color:var(--noite);border-color:var(--lilas)}
+.prompt{margin-top:12px;background:#0a0b16;border:1px solid rgba(204,194,245,.22);border-radius:14px;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:13.5px;line-height:1.55;color:#e9e6ff;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto}
+.cmd{margin-top:8px;background:#0a0b16;border-radius:10px;padding:10px 12px;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#e9e6ff;white-space:pre-wrap;word-break:break-all}
+details{margin-top:14px;color:var(--lilas2)}
+summary{cursor:pointer;color:var(--rosa)}
+.cartao ol li{margin-top:6px}
 @media (max-width:560px){.pilula{width:100%;text-align:center}}
 </style>
 </head>
@@ -86,12 +94,53 @@ footer button{background:none;border:0;color:#8f8ab8;text-decoration:underline;f
     </section>
 
     <section class="cartao">
-      <h2>2. Instale</h2>
-      <ol>
-        <li>Descompacte o arquivo.</li>
-        <li>Abra o <b>COMECE-AQUI.md</b> (qualquer editor de texto abre; se preferir, anexe numa conversa do Claude e peça para ele te guiar).</li>
-        <li>A instalação é feita no computador (Mac ou Windows).</li>
-      </ol>
+      <h2>2. Instale copiando e colando</h2>
+      <p>Você não precisa descompactar nada. Escolha onde vai usar:</p>
+      <div class="abas" role="tablist">
+        <button type="button" role="tab" data-aba="claude" aria-selected="true">Claude Code</button>
+        <button type="button" role="tab" data-aba="codex" aria-selected="false">Codex</button>
+        <button type="button" role="tab" data-aba="app" aria-selected="false">Aplicativo do Claude</button>
+      </div>
+
+      <div data-painel="claude">
+        <ol>
+          <li>Baixe o pacote no passo 1. Ele vai para a pasta <b>Downloads</b>.</li>
+          <li>Abra o aplicativo do Claude no computador, aba <b>Code</b>. Embaixo da caixa de mensagem, clique na pasta e escolha uma pasta nova e vazia (por exemplo, crie <b>Documentos/grand-cheat-code</b>). Deixe o modo de permissão em <b>Manual</b>.<br><span class="aviso">Prefere o terminal? Rode <code>mkdir -p ~/grand-cheat-code && cd ~/grand-cheat-code && claude</code> e confirme que confia na pasta.</span></li>
+          <li>Copie o prompt abaixo e cole na conversa.</li>
+          <li>Quando ele pedir para ler a pasta Downloads e gravar em <code>~/.claude/skills</code>, aprove. É lá que o Claude Code procura as skills. Se o Mac perguntar se o app pode acessar a pasta Downloads, clique em <b>Permitir</b>.</li>
+        </ol>
+      </div>
+
+      <div data-painel="codex" hidden>
+        <p>A versão para o Codex chega em <b>18/11</b>, junto com o resto do pacote. Nesse dia, volte aqui: o prompt de instalação para o Codex aparece nesta aba. Até lá, use o Claude Code ou o aplicativo do Claude.</p>
+      </div>
+
+      <div data-painel="app" hidden>
+        <ol>
+          <li>O aplicativo não enxerga as suas pastas, então aqui o prompt não serve: as skills entram uma a uma.</li>
+          <li>Descompacte o pacote (dois cliques no Mac; no Windows, botão direito e "Extrair tudo").</li>
+          <li>No Claude: <b>Configurações → Recursos</b>, ligue <b>Criar e editar arquivos</b>.</li>
+          <li><b>Personalizar → Skills</b> → <b>+</b> → <b>Criar skill</b> → <b>Enviar uma skill</b>, e escolha cada <code>.zip</code> da pasta <code>para-o-aplicativo/</code>.</li>
+          <li>Numa conversa nova, escreva: <b>começar o Grand Cheat Code</b>.</li>
+        </ol>
+      </div>
+
+      <div id="bloco-prompt">
+        <pre class="prompt" id="prompt" tabindex="0"></pre>
+        <button class="pilula" id="copiar" type="button">Copiar o prompt</button>
+        <p class="aviso" id="copiar-aviso" aria-live="polite">O prompt não leva senha nem link. Ele só procura no seu computador o arquivo que você baixou.</p>
+      </div>
+
+      <details id="plano-b">
+        <summary>Prefere fazer à mão? (plano B)</summary>
+        <p>Descompacte o pacote, abra o terminal dentro da pasta descompactada e rode (Mac e Linux):</p>
+        <div class="cmd" id="manual"></div>
+        <p>No Windows (PowerShell):</p>
+        <div class="cmd">New-Item -ItemType Directory -Force "$HOME\.claude\skills", "$HOME\.grand-cheat-code" | Out-Null
+Copy-Item -Recurse -Force para-o-claude-code\* "$HOME\.claude\skills\"
+Copy-Item -Force grand-cheat-code-config\sinal.sh "$HOME\.grand-cheat-code\"
+if (-not (Test-Path "$HOME\.grand-cheat-code\config")) { Copy-Item grand-cheat-code-config\config "$HOME\.grand-cheat-code\" }</div>
+      </details>
     </section>
 
     <section class="cartao" id="bloco-grupo" hidden>
@@ -162,6 +211,7 @@ function preencher(d){
     $("pacote-de").textContent = "O pacote ainda está sendo preparado. Volte em alguns minutos ou chame no grupo.";
     $("baixar").hidden = true;
   }
+  montarPrompt(d);
   if (d.grupo) { $("grupo").href = d.grupo; $("bloco-grupo").hidden = false; }
   if (d.cidade) { $("cidade").hidden = false; }
   $("conteudo").hidden = false;
@@ -197,6 +247,56 @@ $("baixar").addEventListener("click", async () => {
   } catch (e) {
     aviso.className = "aviso erro"; aviso.textContent = "Sem conexão. Tente de novo em instantes.";
   } finally { b.disabled = false; }
+});
+
+// Prompt de instalação: personalizado com o nome do arquivo que o botão "Baixar" gera.
+const DESTINO = { claude: "~/.claude/skills/", codex: "~/.agents/skills/" };
+let aba = "claude", dadosCompra = null;
+function textoDoPrompt(d, onde){
+  // O servidor devolve o nome que o download usa; o resto é reserva para a função antiga.
+  const raiz = d.raiz || (d.edicao === "heist" ? "gcc-heist" : "grand-cheat-code");
+  const arquivo = d.arquivo || (raiz + "-" + d.licenca + ".zip");
+  const base = arquivo.replace(/\.zip$/, "");
+  const dest = DESTINO[onde];
+  return [
+    "Instale o " + d.produto + " neste computador (licença " + d.licenca + ").",
+    "",
+    "1. Na minha pasta Downloads, procure o arquivo " + arquivo + ". Vale também qualquer arquivo ou pasta cujo nome comece com " + base + " (cópias como \"(1)\" ou a pasta que o navegador já descompactou sozinho); se houver mais de um, use o mais recente. Se não achar, me pergunte onde ele está.",
+    "2. Se for o .zip, descompacte numa pasta temporária. Se já for uma pasta, use ela direto. Dentro dela há uma pasta " + raiz + "/.",
+    "3. Copie cada pasta de " + raiz + "/para-o-claude-code/ para " + dest + " (crie a pasta se não existir; se uma skill vc- já existir, substitua pela nova).",
+    "4. Copie " + raiz + "/grand-cheat-code-config/sinal.sh para ~/.grand-cheat-code/. Copie o arquivo config dessa mesma pasta para ~/.grand-cheat-code/ só se ainda não existir um lá.",
+    "5. Confira que cada skill vc- está em " + dest + " com o seu SKILL.md e me mostre a lista.",
+    "6. Apague só a pasta temporária que você criou. Não mexa em nenhum outro arquivo.",
+    "",
+    "No Windows, ~ é a sua pasta de usuário. No fim, me diga para abrir uma conversa nova e escrever: começar o Grand Cheat Code.",
+  ].join("\n");
+}
+function montarPrompt(d){
+  dadosCompra = d;
+  // Codex: só em 18/11, com a pasta para-o-codex. Até lá a aba mostra o aviso, sem prompt.
+  $("bloco-prompt").hidden = aba !== "claude";
+  $("plano-b").hidden = aba !== "claude";
+  if (aba === "claude") $("prompt").textContent = textoDoPrompt(d, aba);
+  const dest = aba === "codex" ? DESTINO.codex : DESTINO.claude;
+  $("manual").textContent = "mkdir -p " + dest + " ~/.grand-cheat-code\ncp -R para-o-claude-code/* " + dest + "\ncp grand-cheat-code-config/sinal.sh ~/.grand-cheat-code/\n[ -f ~/.grand-cheat-code/config ] || cp grand-cheat-code-config/config ~/.grand-cheat-code/";
+}
+for (const b of document.querySelectorAll(".abas button")) {
+  b.addEventListener("click", () => {
+    aba = b.dataset.aba;
+    for (const x of document.querySelectorAll(".abas button")) x.setAttribute("aria-selected", String(x === b));
+    for (const p of document.querySelectorAll("[data-painel]")) p.hidden = p.dataset.painel !== aba;
+    $("copiar-aviso").textContent = "O prompt não leva senha nem link. Ele só procura no seu computador o arquivo que você baixou.";
+    if (dadosCompra) montarPrompt(dadosCompra);
+  });
+}
+$("copiar").addEventListener("click", async () => {
+  const t = $("prompt").textContent;
+  try { await navigator.clipboard.writeText(t); $("copiar-aviso").textContent = "Copiado. Agora cole na conversa (Cmd+V no Mac, Ctrl+V no Windows)."; }
+  catch (e) {
+    const r = document.createRange(); r.selectNodeContents($("prompt"));
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    $("copiar-aviso").textContent = "Não deu para copiar sozinho: o texto está selecionado, use Cmd+C ou Ctrl+C.";
+  }
 });
 
 $("tentar").addEventListener("click", iniciar);

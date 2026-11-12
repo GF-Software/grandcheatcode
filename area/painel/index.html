@@ -69,6 +69,11 @@ label.grupo{display:flex;gap:6px;align-items:center;font-size:13.5px;cursor:poin
     </div>
     <p class="fraco" id="status" aria-live="polite" style="margin:8px 0 12px"></p>
     <div class="lista" id="lista"></div>
+    <section id="bloco-leads" hidden style="margin-top:28px">
+      <h2 style="font-size:20px;margin-bottom:4px">Leads que travaram</h2>
+      <p class="fraco" id="leads-resumo" style="margin-bottom:12px"></p>
+      <div class="lista" id="leads"></div>
+    </section>
   </section>
 </div>
 
@@ -83,7 +88,7 @@ const sb = SUPABASE_URL ? supabase.createClient(SUPABASE_URL, SUPABASE_CHAVE_PUB
   // sessionStorage: a sessão do admin some ao fechar a aba e não fica ao alcance das páginas do site com medição.
   auth: { storage: window.sessionStorage, persistSession: true },
 }) : null;
-let compras = [];
+let compras = [], leads = null;
 
 const dataHora = (iso) => iso ? new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }) : "";
 const real = (c) => c == null ? "" : (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -151,6 +156,47 @@ async function carregar(){
   compras = data || [];
   $("status").textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
   desenhar();
+  // Leads: se a tabela ainda não existir (migration 0003 não aplicada), o bloco fica escondido.
+  const l = await sb.rpc("painel_leads");
+  leads = l.error ? null : (l.data || []);
+  desenharLeads();
+}
+
+const MOTIVO = { abandono: "abandonou o checkout", pix: "Pix não caiu", cartao: "cartão recusado" };
+function desenharLeads(){
+  const bloco = $("bloco-leads");
+  if (!leads) { bloco.hidden = true; return; }
+  bloco.hidden = false;
+  const conta = (e) => leads.filter((x) => x.estado === e).length;
+  $("leads-resumo").textContent = leads.length + " leads · " + conta(4) + " pagaram · " + conta(3) + " travaram · " + conta(5) + " em conversa · " + conta(7) + " venda fechada";
+  const lista = $("leads"); lista.replaceChildren();
+  const travados = leads.filter((x) => x.estado === 3 || x.estado === 5);
+  if (!travados.length) { lista.append(el("div", { class: "vazio" }, "Nenhum lead travado.")); return; }
+  for (const x of travados) {
+    const primeiro = (x.nome.split(" ")[0] || "").toLowerCase().replace(/^./, (y) => y.toUpperCase());
+    const msg = "Oi, " + primeiro + "! Aqui é o Gustavo, do Grand Cheat Code. Vi que você começou a inscrição e não terminou. Posso te ajudar?";
+    const quem = el("div", {},
+      el("div", { class: "nome" }, x.nome),
+      el("div", { class: "fraco contato" }, "+" + x.whatsapp + (x.email ? " · " + x.email : "") + " · " + x.origem),
+      el("div", { class: "fraco" }, (x.estado === 5 ? "em conversa" : (MOTIVO[x.motivo] || "travou")) + " · entrou " + dataHora(x.criado_em)));
+    const conversa = el("button", { type: "button", class: "fina" }, x.estado === 5 ? "Voltar para travado" : "Marcar em conversa");
+    conversa.addEventListener("click", () => mudarLead(x, x.estado === 5 ? 3 : 5, conversa));
+    const fechou = el("button", { type: "button", class: "fina" }, "Venda fechada");
+    fechou.addEventListener("click", () => mudarLead(x, 7, fechou));
+    const acoes = el("div", { class: "acoes" },
+      el("a", { href: "https://wa.me/" + x.whatsapp + "?text=" + encodeURIComponent(msg), target: "_blank", rel: "noopener noreferrer" }, "Chamar no WhatsApp"),
+      conversa, fechou);
+    lista.append(el("article", { class: "compra atencao" }, quem, acoes));
+  }
+}
+
+async function mudarLead(x, estado, botao){
+  if (estado === 7 && !confirm("Marcar a venda de " + x.nome + " como fechada?")) return;
+  botao.disabled = true;
+  const { error } = await sb.rpc("marcar_lead", { p_id: x.id, p_estado: estado });
+  botao.disabled = false;
+  if (error) { $("status").textContent = "Não salvou: " + error.message; return; }
+  x.estado = estado; desenharLeads();
 }
 
 async function reenviarEmail(c, botao){
