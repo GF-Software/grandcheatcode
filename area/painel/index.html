@@ -75,8 +75,8 @@ label.grupo{display:flex;gap:6px;align-items:center;font-size:13.5px;cursor:poin
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" integrity="sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug" crossorigin="anonymous"></script>
 <script>
 // Preenchidos quando o projeto existir. A chave pública é feita para ficar no site: sem login ela não lê nada.
-const SUPABASE_URL = "";
-const SUPABASE_CHAVE_PUBLICA = "";
+const SUPABASE_URL = "https://dprlznmzlbpsgiapydzz.supabase.co";
+const SUPABASE_CHAVE_PUBLICA = "sb_publishable_x-2kYcpnRl1r53kIlLozzQ_iEqtD-4r"; // chave anon: pública por natureza; o RLS e as funções com admins é que protegem
 
 const $ = (id) => document.getElementById(id);
 const sb = SUPABASE_URL ? supabase.createClient(SUPABASE_URL, SUPABASE_CHAVE_PUBLICA, {
