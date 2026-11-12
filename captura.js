@@ -4,7 +4,7 @@
 // Endpoint vazio = passo desligado; o botão vai direto ao Stripe, como antes.
 // TEXTOS: rascunho funcional (rótulos e aceite). O Vaz reescreve; o fato do aceite (o que a pessoa autoriza) não muda.
 const CAPTURA = {
-  endpoint: "https://dprlznmzlbpsgiapydzz.supabase.co/functions/v1/lead", // função "lead" da gcc-entrega (12/11). Sem apikey: só content-type. Contrato: POST {id, nome, whatsapp, email, aceite, aceite_texto, origem, pagina, utm}
+  endpoint: "https://dprlznmzlbpsgiapydzz.supabase.co/functions/v1/lead", // função "lead" da gcc-entrega (12/11). Sem apikey: só content-type. Contrato: POST {produto, id, nome, whatsapp, email, aceite, aceite_texto, origem, pagina, utm}
   aceite: "Aceito receber mensagens da GFV no WhatsApp e no e-mail sobre esta compra. Posso sair quando quiser.",
 };
 
@@ -35,7 +35,8 @@ const CAPTURA = {
   const utms = () => { const o = {}; new URLSearchParams(location.search).forEach((v, k) => { if (/^utm_/.test(k) && Object.keys(o).length < 10) o[k] = v.slice(0, 150); }); return o; };
 
   // Todo caminho para o Stripe passa por aqui: o POST põe o lead de volta em "checkout aberto" e reinicia os 30 min.
-  const reenvia = lead => envia({ id: lead.id, nome: lead.nome, whatsapp: lead.whatsapp, email: lead.email, aceite: true, aceite_texto: CAPTURA.aceite, origem, pagina: location.pathname, utm: utms() });
+  const produtoDe = href => /14A7sN1AT9WU7IG3320Fi06/.test(href) ? "heist" : "fundador"; // link do GCC Heist avulso
+  const reenvia = (lead, href) => envia({ produto: produtoDe(href), id: lead.id, nome: lead.nome, whatsapp: lead.whatsapp, email: lead.email, aceite: true, aceite_texto: CAPTURA.aceite, origem, pagina: location.pathname, utm: utms() });
   const completo = lead => !!(lead && lead.id && lead.nome && lead.whatsapp);
 
   async function envia(dados) {
@@ -88,7 +89,7 @@ const CAPTURA = {
       f.querySelector("button").disabled = true; f.querySelector("button").textContent = "Abrindo o pagamento…";
       const lead = { id: (ler() || {}).id || novoId(), nome, whatsapp: zap, email };
       gravar(lead);
-      await reenvia(lead);
+      await reenvia(lead, href);
       if (window.gccMarca) gccMarca("lead_captado");
       location.href = destino(href, lead);
     };
@@ -101,7 +102,7 @@ const CAPTURA = {
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
     e.preventDefault();
     const lead = ler();
-    if (completo(lead)) { await reenvia(lead); location.href = destino(a.href, lead); return; }
+    if (completo(lead)) { await reenvia(lead, a.href); location.href = destino(a.href, lead); return; }
     caixa(a.href);
   });
 

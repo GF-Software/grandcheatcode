@@ -3,51 +3,60 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Painel de entrega — GCC</title>
+<title>CRM — GCC</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <style>
-/* Painel do Gustavo. Os dados só chegam depois do login, pela função painel_entrega() (confere admins). */
-:root{--fundo:#0c0d1b;--cartao:#14152b;--linha:rgba(204,194,245,.16);--texto:#f3f0ff;--fraco:#a9a3cf;--rosa:#ffb2c6;--rosa-tinta:#663b56;--verde:#8ff0c8;--ambar:#ffd27a;--erro:#ff9a9a}
+/* CRM do Gustavo. Os dados só chegam depois do login, pela função painel_crm() (confere admins). */
+:root{--fundo:#0c0d1b;--cartao:#14152b;--coluna:#101124;--linha:rgba(204,194,245,.16);--texto:#f3f0ff;--fraco:#a9a3cf;--rosa:#ffb2c6;--rosa-tinta:#663b56;--verde:#8ff0c8;--ambar:#ffd27a;--erro:#ff9a9a;--lilas:#ccc2f5}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--fundo);color:var(--texto);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;min-height:100vh}
-.miolo{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+.miolo{max-width:1500px;margin:0 auto;padding:20px 16px 60px}
 h1{font-size:22px;margin-bottom:4px}
+h2{font-size:16px;margin:18px 0 8px}
 .fraco{color:var(--fraco);font-size:13px}
 form{display:grid;gap:10px;max-width:340px;margin-top:24px}
-input{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--linha);background:var(--cartao);color:var(--texto)}
-button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:10px 18px;background:var(--rosa);color:var(--rosa-tinta);font-weight:600}
+input,select{font:inherit;padding:9px 11px;border-radius:10px;border:1px solid var(--linha);background:var(--cartao);color:var(--texto)}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:9px 16px;background:var(--rosa);color:var(--rosa-tinta);font-weight:600}
 button.fina{background:transparent;color:var(--rosa);border:1px solid rgba(255,178,198,.45)}
+button:disabled{opacity:.5;cursor:default}
 .erro{color:var(--erro)}
-.funil{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
-.etapa{background:var(--cartao);border:1px solid var(--linha);border-radius:14px;padding:14px}
-.etapa b{display:block;font-size:30px;line-height:1.1}
-.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:8px}
-.lista{display:grid;gap:10px}
-.compra{background:var(--cartao);border:1px solid var(--linha);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1.4fr 2fr auto;gap:14px;align-items:center}
-.compra.atencao{border-color:rgba(255,210,122,.6)}
-.nome{font-weight:600}
-.passos{display:flex;flex-wrap:wrap;gap:6px}
-.p{font-size:12.5px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--fraco)}
-.p.ok{background:rgba(143,240,200,.14);color:var(--verde)}
-.p.mal{background:rgba(255,154,154,.14);color:var(--erro)}
-.selo{font-size:11.5px;padding:2px 8px;border-radius:999px;background:#5b3a00;color:var(--ambar);margin-left:6px}
-.acoes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.acoes a{color:var(--rosa);font-size:13.5px}
-label.grupo{display:flex;gap:6px;align-items:center;font-size:13.5px;cursor:pointer}
-.contato{overflow-wrap:anywhere}
-.acoes button{padding:6px 12px;font-size:13px}
-.compra.revogada{opacity:.6}
-.vazio{padding:30px;text-align:center;color:var(--fraco);background:var(--cartao);border-radius:14px}
+.abas{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 10px}
+.abas button{background:var(--cartao);color:var(--fraco);border:1px solid var(--linha)}
+.abas button[aria-selected=true]{background:var(--rosa);color:var(--rosa-tinta);border-color:var(--rosa)}
+.filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filtros label{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--fraco)}
+.filtros .direita{margin-left:auto;display:flex;gap:8px}
+.quadro{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--coluna);border:1px solid var(--linha);border-radius:14px;padding:10px;min-height:120px;display:flex;flex-direction:column;gap:8px}
+.col.alvo{border-color:var(--rosa);background:#1a1430}
+.col header{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:14px}
+.col header span{color:var(--fraco);font-weight:500}
+.cartao{background:var(--cartao);border:1px solid var(--linha);border-radius:12px;padding:10px 11px;display:grid;gap:5px;font-size:13.5px}
+.cartao[draggable=true]{cursor:grab}
+.cartao.arrastando{opacity:.45}
+.nome{font-weight:600;font-size:14.5px;overflow-wrap:anywhere}
+.selos{display:flex;flex-wrap:wrap;gap:4px}
+.selo{font-size:11.5px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--fraco)}
+.selo.ambar{background:#5b3a00;color:var(--ambar)}
+.selo.verde{background:rgba(143,240,200,.14);color:var(--verde)}
+.selo.mal{background:rgba(255,154,154,.14);color:var(--erro)}
+.contato{color:var(--fraco);font-size:12.5px;overflow-wrap:anywhere}
+.acoes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:2px}
+.acoes a{color:var(--rosa);font-size:13px}
+.acoes select{padding:5px 8px;font-size:12.5px;border-radius:8px;max-width:100%}
+.acoes button{padding:4px 10px;font-size:12.5px}
+.historico{list-style:none;display:grid;gap:3px;font-size:12px;color:var(--fraco);border-top:1px solid var(--linha);padding-top:6px}
+.vazio{color:var(--fraco);font-size:12.5px;text-align:center;padding:10px 0}
 [hidden]{display:none!important}
-@media (max-width:760px){.funil{grid-template-columns:repeat(2,1fr)}.compra{grid-template-columns:1fr}.acoes{justify-content:flex-start}}
+@media (max-width:700px){.quadro{grid-auto-columns:82%}.filtros .direita{margin-left:0}}
 </style>
 </head>
 <body>
 <div class="miolo">
-  <h1>Entrega do Grand Cheat Code</h1>
-  <p class="fraco">Pagou → e-mail enviado → baixou → entrou no grupo. "Entrou no grupo" é marcado à mão.</p>
+  <h1>CRM do Grand Cheat Code</h1>
+  <p class="fraco">Todo lead do site entra na Venda. Quem trava vai para a Recuperação, numa raia por motivo. Quem paga segue no Pós-venda. Arraste o cartão ou use "Mover para".</p>
 
   <form id="entrar" hidden>
     <input id="email" type="email" autocomplete="username" placeholder="e-mail" required>
@@ -57,146 +66,208 @@ label.grupo{display:flex;gap:6px;align-items:center;font-size:13.5px;cursor:poin
   </form>
 
   <section id="painel" hidden>
-    <div class="funil">
-      <div class="etapa"><b id="n-pagou">0</b><span class="fraco">pagaram</span></div>
-      <div class="etapa"><b id="n-email">0</b><span class="fraco">e-mail enviado</span></div>
-      <div class="etapa"><b id="n-baixou">0</b><span class="fraco">baixaram</span></div>
-      <div class="etapa"><b id="n-grupo">0</b><span class="fraco">no grupo</span></div>
+    <div class="abas" role="tablist">
+      <button type="button" role="tab" data-pipe="venda" aria-selected="true">Venda</button>
+      <button type="button" role="tab" data-pipe="rec" aria-selected="false">Recuperação</button>
+      <button type="button" role="tab" data-pipe="pos" aria-selected="false">Pós-venda</button>
     </div>
-    <div class="barra">
-      <label class="grupo"><input type="checkbox" id="ver-testes"> mostrar compras de teste</label>
-      <span><button class="fina" id="atualizar" type="button">Atualizar</button> <button class="fina" id="sair" type="button">Sair</button></span>
+    <div class="filtros">
+      <label>Produto <select id="f-produto"><option value="">todos</option><option value="fundador">Fundador</option><option value="heist">Heist</option></select></label>
+      <label>Origem <select id="f-origem"><option value="">todas</option><option value="landing">landing</option><option value="manychat">ManyChat</option><option value="direto">direto (sem lead)</option></select></label>
+      <label><input type="checkbox" id="ver-testes"> testes</label>
+      <span class="direita"><button class="fina" id="atualizar" type="button">Atualizar</button> <button class="fina" id="sair" type="button">Sair</button></span>
     </div>
-    <p class="fraco" id="status" aria-live="polite" style="margin:8px 0 12px"></p>
-    <div class="lista" id="lista"></div>
-    <section id="bloco-leads" hidden style="margin-top:28px">
-      <h2 style="font-size:20px;margin-bottom:4px">Leads que travaram</h2>
-      <p class="fraco" id="leads-resumo" style="margin-bottom:12px"></p>
-      <div class="lista" id="leads"></div>
-    </section>
+    <p class="fraco" id="status" aria-live="polite" style="margin:8px 0 6px"></p>
+    <div id="quadros"></div>
   </section>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" integrity="sha384-GFr3yTh5lJznCbZfpTtXnwboFsxqtTQoeTZCRHhE0579KrRmlCzen5AA8ohaB5ug" crossorigin="anonymous"></script>
 <script>
-// Preenchidos quando o projeto existir. A chave pública é feita para ficar no site: sem login ela não lê nada.
 const SUPABASE_URL = "https://dprlznmzlbpsgiapydzz.supabase.co";
-const SUPABASE_CHAVE_PUBLICA = "sb_publishable_x-2kYcpnRl1r53kIlLozzQ_iEqtD-4r"; // chave anon: pública por natureza; o RLS e as funções com admins é que protegem
+const SUPABASE_CHAVE_PUBLICA = "sb_publishable_x-2kYcpnRl1r53kIlLozzQ_iEqtD-4r"; // chave pública: sem login de admin ela não lê nada (RLS e funções com admins)
 
 const $ = (id) => document.getElementById(id);
-const sb = SUPABASE_URL ? supabase.createClient(SUPABASE_URL, SUPABASE_CHAVE_PUBLICA, {
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_CHAVE_PUBLICA, {
   // sessionStorage: a sessão do admin some ao fechar a aba e não fica ao alcance das páginas do site com medição.
   auth: { storage: window.sessionStorage, persistSession: true },
-}) : null;
-let compras = [], leads = null;
+});
+
+// Os três pipelines. A chave de cada coluna é a mesma que o banco devolve (crm_coluna / crm_etapa_pos).
+const PIPES = {
+  venda: { raias: [{ cols: [["venda:lead", "Lead"], ["venda:checkout", "Checkout aberto"], ["venda:pagou", "Pagou"], ["venda:fechada", "Venda fechada (à mão)"]] }] },
+  rec: { raias: [
+    { id: "abandono", nome: "Abandonou o checkout", cols: [["travou", "Travou"], ["contato", "1º contato"], ["conversa", "Em conversa"], ["link", "Link reenviado"], ["recuperado", "Recuperado"], ["perdido", "Perdido"]] },
+    { id: "pix", nome: "Pix não pago", cols: [["pendente", "Pix pendente"], ["lembrete", "Lembrete enviado"], ["conversa", "Em conversa"], ["recuperado", "Recuperado"], ["perdido", "Perdido"]] },
+    { id: "cartao", nome: "Cartão recusado", cols: [["recusado", "Cartão recusado"], ["contato", "Contato"], ["outro_meio", "Outro meio (Pix/link)"], ["recuperado", "Recuperado"], ["perdido", "Perdido"]] },
+  ].map((r) => ({ ...r, cols: r.cols.map(([k, n]) => ["rec:" + r.id + ":" + k, n]) })) },
+  pos: { raias: [{ cols: [["pos:pagou", "Pagou"], ["pos:email", "E-mail enviado"], ["pos:baixou", "Baixou"], ["pos:grupo", "Entrou no grupo (à mão)"], ["pos:usou", "Usou (à mão)"]] }] },
+};
+const NOME = {};
+for (const p of Object.values(PIPES)) for (const r of p.raias) for (const [k, n] of r.cols) NOME[k] = (r.nome ? r.nome + " › " : "") + n;
+const nomeColuna = (k) => k ? (NOME[k.replace(/ \(.*$/, "")] || k) + (/\(revogada/.test(k) ? " (revogada)" : "") : "entrada";
+
+let pipe = "venda", dados = null;
 
 const dataHora = (iso) => iso ? new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }) : "";
-const real = (c) => c == null ? "" : (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+function ha(iso){
+  if (!iso) return "";
+  const m = Math.max(0, Math.round((Date.now() - new Date(iso)) / 60000));
+  return m < 60 ? "há " + m + " min" : m < 2880 ? "há " + Math.round(m / 60) + " h" : "há " + Math.round(m / 1440) + " d";
+}
+const primeiroNome = (n) => (String(n || "").split(" ")[0] || "").toLowerCase().replace(/^./, (x) => x.toUpperCase());
+const PRODUTO = { fundador: "Fundador", heist: "Heist" };
 
 function el(tag, attrs = {}, ...filhos){
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) { if (k === "class") e.className = v; else if (v !== false && v != null) e.setAttribute(k, v); }
-  for (const f of filhos) if (f != null) e.append(f);
+  for (const f of filhos) if (f != null && f !== false) e.append(f);
   return e;
 }
+const selo = (t, c) => el("span", { class: "selo " + (c || "") }, t);
 
-function passo(texto, estado){ return el("span", { class: "p " + (estado || "") }, texto); }
+// ── Itens de cada pipeline, já filtrados ───────────────────────────────────
+function itens(){
+  const fp = $("f-produto").value, fo = $("f-origem").value, testes = $("ver-testes").checked;
+  const passa = (x) => (!fp || x.produto === fp) && (!fo || x.origem === fo) && (testes || !x.teste);
+  const leads = (dados?.leads || []).filter(passa).map((l) => ({ ...l, tipo: "lead", ref: l.id }));
+  const compras = (dados?.compras || []).filter(passa).map((c) => ({ ...c, tipo: "compra", ref: c.id, coluna: "pos:" + c.etapa }));
+  return {
+    venda: leads.filter((l) => l.coluna.startsWith("venda:")),
+    rec: leads.filter((l) => l.coluna.startsWith("rec:")),
+    pos: compras,
+  };
+}
 
-function linkWhats(c){
-  const n = String(c.telefone || "").replace(/\D/g, "");
+// Para onde o cartão pode ir à mão. Lead, checkout, pagou, e-mail e download vêm do sistema.
+function destinos(x){
+  if (x.tipo === "compra") return PIPES.pos.raias[0].cols.map(([k]) => k).filter((k) => k !== x.coluna);
+  if (x.estado === 4) return [];
+  if (x.coluna.startsWith("venda:")) return x.coluna === "venda:fechada" ? [] : ["venda:fechada"];
+  const raia = x.coluna.split(":")[1];
+  return PIPES.rec.raias.find((r) => r.id === raia).cols.map(([k]) => k).filter((k) => k !== x.coluna);
+}
+
+function linkWhats(x){
+  const n = String(x.tipo === "compra" ? x.telefone || "" : x.whatsapp || "").replace(/\D/g, "");
   if (n.length < 10) return null;
-  const primeiro = (c.nome.split(" ")[0] || "").toLowerCase().replace(/^./, (x) => x.toUpperCase());
-  const msg = "Oi, " + primeiro + "! Aqui é o Gustavo, do Grand Cheat Code. Sua licença " + c.licenca + " já está no seu e-mail. Te mando o link do grupo dos fundadores por aqui?";
+  const oi = "Oi, " + primeiroNome(x.nome) + "! Aqui é o Gustavo, do Grand Cheat Code. ";
+  let msg;
+  if (x.tipo === "compra") msg = oi + "Sua licença " + x.licenca + " já está no seu e-mail. Te mando o link do grupo dos fundadores por aqui?";
+  else if (x.coluna.startsWith("rec:pix")) msg = oi + "Vi que o Pix da sua inscrição não foi pago. Quer que eu te mande um novo?";
+  else if (x.coluna.startsWith("rec:cartao")) msg = oi + "Vi que o cartão não passou na sua inscrição. Posso te mandar um link com Pix ou outro cartão?";
+  else if (x.coluna.startsWith("rec:")) msg = oi + "Vi que você começou a inscrição e não terminou. Posso te ajudar?";
+  else msg = oi + "Vi que você se inscreveu. Ficou alguma dúvida?";
   return "https://wa.me/" + n + "?text=" + encodeURIComponent(msg);
 }
 
+function cartao(x){
+  const c = el("article", { class: "cartao", draggable: destinos(x).length ? "true" : null });
+  c.dataset.tipo = x.tipo; c.dataset.ref = x.ref;
+  const selos = el("div", { class: "selos" },
+    selo(PRODUTO[x.produto] || x.produto),
+    selo(x.origem === "manychat" ? "ManyChat" : x.origem),
+    x.teste ? selo("teste", "ambar") : null,
+    x.voltou_da_rec && x.coluna.startsWith("venda:") ? selo("voltou da recuperação", "ambar") : null,
+    x.pix_pendente_em && x.coluna === "venda:checkout" ? selo("Pix pendente", "ambar") : null,
+    x.tipo === "compra" && x.recuperado ? selo("recuperada", "verde") : null,
+    x.tipo === "compra" && !x.email_enviado_em && x.email_erro ? selo("e-mail falhou", "mal") : null,
+    x.revogada_em ? selo("revogada: " + x.motivo_revogacao, "mal") : null);
+  const contato = x.tipo === "compra"
+    ? x.licenca + " · " + x.email + (x.telefone ? " · " + x.telefone : "")
+    : "+" + x.whatsapp + (x.email ? " · " + x.email : "");
+  const acoes = el("div", { class: "acoes" });
+  const w = x.revogada_em ? null : linkWhats(x);
+  if (w) acoes.append(el("a", { href: w, target: "_blank", rel: "noopener noreferrer" }, "WhatsApp"));
+  const alvos = destinos(x);
+  if (alvos.length) {
+    const s = el("select", { "aria-label": "Mover " + x.nome + " para" }, el("option", { value: "" }, "Mover para…"),
+      ...alvos.map((k) => el("option", { value: k }, nomeColuna(k).replace(/^.* › /, ""))));
+    s.addEventListener("change", () => { if (s.value) mover(x, s.value, s); });
+    acoes.append(s);
+  }
+  const hist = el("button", { type: "button", class: "fina" }, "Histórico");
+  hist.addEventListener("click", () => historico(x, c, hist));
+  acoes.append(hist);
+  if (x.tipo === "compra" && !x.revogada_em) {
+    const r = el("button", { type: "button", class: "fina" }, "Reenviar e-mail");
+    r.addEventListener("click", () => reenviarEmail(x, r));
+    acoes.append(r);
+  }
+  c.append(el("div", { class: "nome" }, x.nome), selos,
+    el("div", { class: "contato" }, contato),
+    el("div", { class: "fraco" }, ha(x.coluna_desde) + " nesta coluna" + (x.tipo === "lead" ? " · entrou " + dataHora(x.criado_em) : " · pagou " + dataHora(x.pago_em))),
+    acoes);
+  c.addEventListener("dragstart", (e) => { arrastado = x; c.classList.add("arrastando"); e.dataTransfer.setData("text/plain", x.ref); e.dataTransfer.effectAllowed = "move"; });
+  c.addEventListener("dragend", () => { arrastado = null; c.classList.remove("arrastando"); });
+  return c;
+}
+
+let arrastado = null;
+function coluna(chave, nome, lista){
+  const col = el("section", { class: "col", "aria-label": nome });
+  col.append(el("header", {}, nome, el("span", {}, String(lista.length))));
+  if (!lista.length) col.append(el("div", { class: "vazio" }, "—"));
+  for (const x of lista.sort((a, b) => new Date(b.coluna_desde) - new Date(a.coluna_desde))) col.append(cartao(x));
+  col.addEventListener("dragover", (e) => { if (arrastado && destinos(arrastado).includes(chave)) { e.preventDefault(); col.classList.add("alvo"); } });
+  col.addEventListener("dragleave", () => col.classList.remove("alvo"));
+  col.addEventListener("drop", (e) => { e.preventDefault(); col.classList.remove("alvo"); if (arrastado && destinos(arrastado).includes(chave)) mover(arrastado, chave); });
+  return col;
+}
+
 function desenhar(){
-  const verTestes = $("ver-testes").checked;
-  const vis = compras.filter((c) => verTestes || !c.teste);
-  $("n-pagou").textContent = vis.length;
-  $("n-email").textContent = vis.filter((c) => c.email_enviado_em).length;
-  $("n-baixou").textContent = vis.filter((c) => c.total_downloads > 0).length;
-  $("n-grupo").textContent = vis.filter((c) => c.entrou_no_grupo_em).length;
-  const lista = $("lista"); lista.replaceChildren();
-  if (!vis.length) { lista.append(el("div", { class: "vazio" }, "Nenhuma compra ainda.")); return; }
-  const vezes = {};
-  for (const c of vis) vezes[c.email.toLowerCase()] = (vezes[c.email.toLowerCase()] || 0) + 1;
-  const repetidos = new Set(Object.keys(vezes).filter((e) => vezes[e] > 1));
-  for (const c of vis) {
-    const atencao = !c.revogada_em && (!c.email_enviado_em || !c.entrou_no_grupo_em);
-    const quem = el("div", {},
-      el("div", { class: "nome" }, c.nome, c.teste ? el("span", { class: "selo" }, "teste") : null),
-      el("div", { class: "fraco" }, c.licenca + " · " + (c.edicao === "heist" ? "Heist" : "Fundador") + " · " + real(c.valor_centavos)),
-      el("div", { class: "fraco contato" }, c.email + (c.telefone ? " · " + c.telefone : "") + (repetidos.has(c.email.toLowerCase()) ? " · comprou mais de uma vez" : "")));
-    const passos = el("div", { class: "passos" },
-      passo("pagou " + dataHora(c.pago_em), "ok"),
-      c.email_enviado_em ? passo("e-mail " + dataHora(c.email_enviado_em), "ok")
-        : passo(c.email_erro ? "e-mail falhou: " + c.email_erro : "e-mail pendente", "mal"),
-      c.total_downloads > 0 ? passo("baixou " + c.total_downloads + "× · " + dataHora(c.ultimo_download_em), "ok") : passo("não baixou"),
-      c.entrou_no_grupo_em ? passo("no grupo " + dataHora(c.entrou_no_grupo_em), "ok") : passo("fora do grupo"),
-      c.revogada_em ? passo("revogada: " + c.motivo_revogacao + " " + dataHora(c.revogada_em), "mal") : null);
-    const caixa = el("input", { type: "checkbox" });
-    caixa.checked = !!c.entrou_no_grupo_em;
-    caixa.addEventListener("change", () => marcar(c, caixa));
-    const w = !c.entrou_no_grupo_em && !c.revogada_em ? linkWhats(c) : null;
-    const reenviar = c.revogada_em ? null : el("button", { type: "button", class: "fina" }, "Reenviar com link novo");
-    if (reenviar) reenviar.addEventListener("click", () => reenviarEmail(c, reenviar));
-    const acoes = el("div", { class: "acoes" },
-      el("label", { class: "grupo" }, caixa, "entrou no grupo"),
-      w ? el("a", { href: w, target: "_blank", rel: "noopener noreferrer" }, "Chamar no WhatsApp") : null,
-      reenviar);
-    lista.append(el("article", { class: "compra" + (atencao ? " atencao" : "") + (c.revogada_em ? " revogada" : "") }, quem, passos, acoes));
+  const todos = itens();
+  for (const b of document.querySelectorAll(".abas button")) {
+    b.setAttribute("aria-selected", String(b.dataset.pipe === pipe));
+    b.textContent = { venda: "Venda", rec: "Recuperação", pos: "Pós-venda" }[b.dataset.pipe] + " · " + todos[b.dataset.pipe].length;
+  }
+  const q = $("quadros"); q.replaceChildren();
+  for (const r of PIPES[pipe].raias) {
+    const daRaia = todos[pipe];
+    if (r.nome) q.append(el("h2", {}, r.nome + " · " + daRaia.filter((x) => x.coluna.startsWith("rec:" + r.id + ":")).length));
+    q.append(el("div", { class: "quadro" }, ...r.cols.map(([k, n]) => coluna(k, n, daRaia.filter((x) => x.coluna === k)))));
   }
 }
 
+// ── Banco ──────────────────────────────────────────────────────────────────
 async function carregar(){
   $("status").textContent = "Carregando…";
-  const { data, error } = await sb.rpc("painel_entrega");
-  if (error) { $("status").textContent = error.code === "42501" ? "Este usuário não é admin do painel." : "Erro ao carregar: " + error.message; return; }
-  compras = data || [];
+  const { data, error } = await sb.rpc("painel_crm");
+  if (error) {
+    $("status").textContent = error.code === "42501" ? "Este usuário não é admin do painel."
+      : error.code === "PGRST202" ? "O CRM ainda não está ligado no banco (migration 0005)." : "Erro ao carregar: " + error.message;
+    return;
+  }
+  dados = data || { leads: [], compras: [] };
   $("status").textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + ".";
   desenhar();
-  // Leads: se a tabela ainda não existir (migration 0003 não aplicada), o bloco fica escondido.
-  const l = await sb.rpc("painel_leads");
-  leads = l.error ? null : (l.data || []);
-  desenharLeads();
 }
 
-const MOTIVO = { abandono: "abandonou o checkout", pix: "Pix não caiu", cartao: "cartão recusado" };
-function desenharLeads(){
-  const bloco = $("bloco-leads");
-  if (!leads) { bloco.hidden = true; return; }
-  bloco.hidden = false;
-  const conta = (e) => leads.filter((x) => x.estado === e).length;
-  $("leads-resumo").textContent = leads.length + " leads · " + conta(4) + " pagaram · " + conta(3) + " travaram · " + conta(5) + " em conversa · " + conta(7) + " venda fechada";
-  const lista = $("leads"); lista.replaceChildren();
-  const travados = leads.filter((x) => x.estado === 3 || x.estado === 5);
-  if (!travados.length) { lista.append(el("div", { class: "vazio" }, "Nenhum lead travado.")); return; }
-  for (const x of travados) {
-    const primeiro = (x.nome.split(" ")[0] || "").toLowerCase().replace(/^./, (y) => y.toUpperCase());
-    const msg = "Oi, " + primeiro + "! Aqui é o Gustavo, do Grand Cheat Code. Vi que você começou a inscrição e não terminou. Posso te ajudar?";
-    const quem = el("div", {},
-      el("div", { class: "nome" }, x.nome),
-      el("div", { class: "fraco contato" }, "+" + x.whatsapp + (x.email ? " · " + x.email : "") + " · " + x.origem),
-      el("div", { class: "fraco" }, (x.estado === 5 ? "em conversa" : (MOTIVO[x.motivo] || "travou")) + " · entrou " + dataHora(x.criado_em)));
-    const conversa = el("button", { type: "button", class: "fina" }, x.estado === 5 ? "Voltar para travado" : "Marcar em conversa");
-    conversa.addEventListener("click", () => mudarLead(x, x.estado === 5 ? 3 : 5, conversa));
-    const fechou = el("button", { type: "button", class: "fina" }, "Venda fechada");
-    fechou.addEventListener("click", () => mudarLead(x, 7, fechou));
-    const acoes = el("div", { class: "acoes" },
-      el("a", { href: "https://wa.me/" + x.whatsapp + "?text=" + encodeURIComponent(msg), target: "_blank", rel: "noopener noreferrer" }, "Chamar no WhatsApp"),
-      conversa, fechou);
-    lista.append(el("article", { class: "compra atencao" }, quem, acoes));
-  }
+async function mover(x, para, controle){
+  const fim = /:(fechada|recuperado)$/.test(para);
+  if (fim && !confirm("Marcar a venda de " + x.nome + " como fechada à mão?")) { if (controle) controle.value = ""; return; }
+  if (controle) controle.disabled = true;
+  $("status").textContent = "Movendo " + x.nome + "…";
+  const r = x.tipo === "compra"
+    ? await sb.rpc("mover_compra", { p_id: x.id, p_etapa: para.slice(4) })
+    : await sb.rpc("mover_lead", { p_id: x.id, p_coluna: para });
+  if (r.error) { $("status").textContent = "Não moveu: " + r.error.message; if (controle) { controle.disabled = false; controle.value = ""; } return; }
+  const ficou = x.tipo === "compra" ? "pos:" + r.data : r.data;
+  await carregar();
+  if (ficou !== para) $("status").textContent = x.nome + " ficou em \"" + nomeColuna(ficou) + "\": e-mail e download vêm do sistema.";
 }
 
-async function mudarLead(x, estado, botao){
-  if (estado === 7 && !confirm("Marcar a venda de " + x.nome + " como fechada?")) return;
+async function historico(x, c, botao){
+  const velho = c.querySelector(".historico");
+  if (velho) { velho.remove(); return; }
   botao.disabled = true;
-  const { error } = await sb.rpc("marcar_lead", { p_id: x.id, p_estado: estado });
+  const { data, error } = await sb.rpc("historico_crm", { p_alvo: x.tipo, p_ref: x.ref });
   botao.disabled = false;
-  if (error) { $("status").textContent = "Não salvou: " + error.message; return; }
-  x.estado = estado; desenharLeads();
+  const ul = el("ul", { class: "historico" });
+  if (error) ul.append(el("li", {}, "Erro: " + error.message));
+  else if (!data.length) ul.append(el("li", {}, "Sem histórico."));
+  else for (const h of data) ul.append(el("li", {}, dataHora(h.quando) + " · " + nomeColuna(h.de) + " → " + nomeColuna(h.para) + (h.a_mao ? " · à mão" : " · sistema")));
+  c.append(ul);
 }
 
 async function reenviarEmail(c, botao){
@@ -212,17 +283,7 @@ async function reenviarEmail(c, botao){
   carregar();
 }
 
-async function marcar(c, caixa){
-  if (!caixa.checked && !confirm("Desmarcar " + c.nome + " do grupo?")) { caixa.checked = true; return; }
-  caixa.disabled = true;
-  const { data, error } = await sb.rpc("marcar_grupo", { p_licenca: c.licenca, p_entrou: caixa.checked });
-  caixa.disabled = false;
-  if (error) { caixa.checked = !caixa.checked; $("status").textContent = "Não salvou: " + error.message; return; }
-  c.entrou_no_grupo_em = data; desenhar();
-}
-
 async function iniciar(){
-  if (!sb) { $("status").textContent = ""; $("painel").hidden = false; $("lista").replaceChildren(el("div", { class: "vazio" }, "Painel ainda não ligado ao Supabase.")); return; }
   const { data } = await sb.auth.getSession();
   if (data.session) { $("painel").hidden = false; carregar(); } else { $("entrar").hidden = false; }
 }
@@ -234,8 +295,9 @@ $("entrar").addEventListener("submit", async (e) => {
   if (error) { $("entrar-erro").textContent = "Não entrou: " + error.message; return; }
   $("senha").value = ""; $("entrar").hidden = true; $("painel").hidden = false; carregar();
 });
+for (const b of document.querySelectorAll(".abas button")) b.addEventListener("click", () => { pipe = b.dataset.pipe; desenhar(); });
+for (const id of ["f-produto", "f-origem", "ver-testes"]) $(id).addEventListener("change", desenhar);
 $("atualizar").addEventListener("click", carregar);
-$("ver-testes").addEventListener("change", desenhar);
 $("sair").addEventListener("click", async () => { await sb.auth.signOut(); location.reload(); });
 iniciar();
 </script>

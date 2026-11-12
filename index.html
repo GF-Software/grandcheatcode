@@ -79,27 +79,58 @@
     "@id": "https://grandcheatcode.gfsoftware.tech/#gfv"
    },
    "category": "Skills para o Claude (Anthropic)",
-   "offers": {
-    "@type": "Offer",
-    "url": "https://grandcheatcode.gfsoftware.tech/#edicoes",
-    "price": "1111.00",
-    "priceCurrency": "BRL",
-    "availability": "https://schema.org/InStock",
-    "validFrom": "2026-11-11T11:11:00-03:00",
-    "priceValidUntil": "2026-11-18",
-    "availabilityEnds": "2026-11-18T11:11:00-03:00",
-    "seller": {
-     "@id": "https://grandcheatcode.gfsoftware.tech/#gfv"
+   "offers": [
+    {
+     "@type": "Offer",
+     "name": "Edição Fundador",
+     "url": "https://grandcheatcode.gfsoftware.tech/#edicoes",
+     "price": "1111.00",
+     "priceCurrency": "BRL",
+     "availability": "https://schema.org/InStock",
+     "validFrom": "2026-11-11T11:11:00-03:00",
+     "priceValidUntil": "2026-11-18",
+     "availabilityEnds": "2026-11-18T11:11:00-03:00",
+     "seller": {
+      "@id": "https://grandcheatcode.gfsoftware.tech/#gfv"
+     },
+     "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "BR",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 7,
+      "returnFees": "https://schema.org/FreeReturn",
+      "returnMethod": "https://schema.org/ReturnByMail"
+     }
     },
-    "hasMerchantReturnPolicy": {
-     "@type": "MerchantReturnPolicy",
-     "applicableCountry": "BR",
-     "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-     "merchantReturnDays": 7,
-     "returnFees": "https://schema.org/FreeReturn",
-     "returnMethod": "https://schema.org/ReturnByMail"
+    {
+     "@type": "Offer",
+     "name": "GCC Heist",
+     "url": "https://grandcheatcode.gfsoftware.tech/#heist",
+     "price": "111.11",
+     "priceCurrency": "BRL",
+     "availability": "https://schema.org/InStock",
+     "itemOffered": {
+      "@type": "Product",
+      "name": "GCC Heist",
+      "description": "Duas skills para o Claude (vc-empresa e vc-heist): tudo o que você acha bom vira uma versão pronta para a sua empresa. Funciona no aplicativo do Claude e no Claude Code.",
+      "brand": {
+       "@type": "Brand",
+       "name": "Grand Cheat Code"
+      }
+     },
+     "seller": {
+      "@id": "https://grandcheatcode.gfsoftware.tech/#gfv"
+     },
+     "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "BR",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 7,
+      "returnFees": "https://schema.org/FreeReturn",
+      "returnMethod": "https://schema.org/ReturnByMail"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "FAQPage",
@@ -143,7 +174,7 @@
      "name": "O Claude está incluído?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Não. As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code. A instalação inicial é feita no computador (Mac ou Windows). A Prefeitura, em 09/12, pede um plano maior do Claude e utiliza Jira para o quadro automatizado."
+      "text": "Não. As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code. A instalação inicial é feita no computador (Mac ou Windows). A Prefeitura, em 18/11, pede um plano maior do Claude e utiliza Jira para o quadro automatizado."
      }
     },
     {
@@ -175,7 +206,7 @@
      "name": "Recebo todos os pacotes no momento da compra?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Não. Comece Aqui, Organização e a Banca de 5 revisores fazem parte do acesso inicial. Os demais pacotes entram na sua licença seguindo o calendário de liberação apresentado."
+      "text": "Não. Comece Aqui, Organização e a Banca de 5 revisores fazem parte do acesso inicial. Os demais pacotes entram na sua licença em 18/11."
      }
     },
     {
@@ -433,6 +464,11 @@ h2 span{background:var(--por-do-sol);-webkit-background-clip:text;background-cli
 .edicao .sete{font-size:14px;color:var(--lilas);margin-top:14px;line-height:1.45}
 .edicao .fechou{display:none;margin-top:26px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:30px;line-height:1.05;text-transform:uppercase;color:var(--rosa)}
 [data-fase="encerrado"] .edicao .fechou{display:block}
+/* GCC Heist: oferta avulsa, abaixo do Fundador e menor (o Fundador continua como a oferta principal) */
+.edicao.heist{margin-top:22px;padding:28px 36px;background:var(--noite2);border:1px solid rgba(204,194,245,.22)}
+.edicao.heist h3{font-size:40px}
+.edicao.heist .preco{font-size:64px;margin-top:14px}
+.edicao.heist .pilula{margin-top:18px;padding:14px;background:transparent;color:var(--rosa);border:1.5px solid var(--rosa);box-shadow:none}
 .precisa{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
 .precisa .caixa h3{font-size:26px}
 .precisa .caixa p:not(.olho){font-size:15.5px}
@@ -841,16 +877,16 @@ Não foi conferido: ...
       <article class="cartao surge" style="--ceu:linear-gradient(180deg,#ffd9a0,#ff9fb0 45%,#c77be0 62%);--px:6%;--sx:66%"><img data-arte="c2" alt="" hidden><span class="data ja">11/11</span><span class="lugar">Portão</span><h3>Comece aqui</h3><p>Configure o necessário antes de acumular ferramentas.</p></article>
       <article class="cartao surge" style="--ceu:linear-gradient(180deg,#9a86ea,#e58fc0 45%,#ffc58a 62%);--px:6%;--sx:62%"><img data-arte="t8" alt="" hidden><span class="data ja">11/11</span><span class="lugar">Tribunal</span><h3>Banca de 5 revisores</h3><p>Cada revisor procura um tipo de problema antes da publicação.</p></article>
       <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#5d4bb8,#c468c2 42%,#ff9a6b 62%);--px:60%;--sx:30%"><img data-arte="c3" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">18/11</span><span class="lugar">Oficina</span><h3>Vibe coding</h3><p>Do código gerado à aplicação no ar.</p></article>
-      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#f3b8cf,#c59cf0 45%,#7d6fe6 62%);--px:4%;--sx:60%"><img data-arte="c4" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">25/11</span><span class="lugar">Cofre</span><h3>Segurança</h3><p>Os riscos que não aparecem na interface.</p></article>
-      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#ffd27a,#ff8f8a 42%,#a45fd6 62%);--px:68%;--sx:34%"><img data-arte="c5" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">Bônus · 02/12</span><span class="lugar">Farol</span><h3>Ser encontrado</h3><p>Seu projeto também precisa ser descoberto.</p></article>
-      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 45%,#f7b2c4 62%);--px:62%;--sx:32%"><img data-arte="p7" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">09/12</span><span class="lugar">Prefeitura</span><h3>Time de agentes</h3><p>Agentes especializados para seus projetos.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#f3b8cf,#c59cf0 45%,#7d6fe6 62%);--px:4%;--sx:60%"><img data-arte="c4" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">18/11</span><span class="lugar">Cofre</span><h3>Segurança</h3><p>Os riscos que não aparecem na interface.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#ffd27a,#ff8f8a 42%,#a45fd6 62%);--px:68%;--sx:34%"><img data-arte="c5" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">Bônus · 18/11</span><span class="lugar">Farol</span><h3>Ser encontrado</h3><p>Seu projeto também precisa ser descoberto.</p></article>
+      <article class="cartao trava surge" style="--ceu:linear-gradient(180deg,#7fd6e6,#b9a8f0 45%,#f7b2c4 62%);--px:62%;--sx:32%"><img data-arte="p7" alt="" hidden><span class="cadeado"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><span class="data">18/11</span><span class="lugar">Prefeitura</span><h3>Time de agentes</h3><p>Agentes especializados para seus projetos.</p></article>
     </div>
   </div>
 </section>
 
 <section id="prefeitura" class="centro">
   <div class="miolo">
-    <span class="selo-data surge">Prefeitura · 09/12</span>
+    <span class="selo-data surge">Prefeitura · 18/11</span>
     <h2 class="surge">Um fluxo de trabalho com agentes <span>especializados para seus projetos</span></h2>
     <p class="sub surge">Você apresenta a ideia ao Orquestrador. Ele organiza as tarefas e direciona o trabalho aos papéis correspondentes.</p>
     <div class="cadeia surge">
@@ -882,9 +918,9 @@ Não foi conferido: ...
       <article class="quadra praca surge" style="--c:3;--r:3"><span class="data ja">11/11</span><h3>Praça</h3></article>
       <article class="quadra surge" style="--c:1;--r:3"><span class="data">18/11</span><h3>Oficina</h3></article>
       <article class="quadra surge" style="--c:5;--r:3"><span class="data">18/11</span><h3>Distrito Financeiro</h3></article>
-      <article class="quadra surge" style="--c:1;--r:5"><span class="data">25/11</span><h3>Cofre</h3></article>
-      <article class="quadra surge" style="--c:3;--r:5"><span class="data">02/12</span><h3>Farol</h3></article>
-      <article class="quadra surge" style="--c:5;--r:5"><span class="data">09/12</span><h3>Prefeitura</h3></article>
+      <article class="quadra surge" style="--c:1;--r:5"><span class="data">18/11</span><h3>Cofre</h3></article>
+      <article class="quadra surge" style="--c:3;--r:5"><span class="data">18/11</span><h3>Farol</h3></article>
+      <article class="quadra surge" style="--c:5;--r:5"><span class="data">18/11</span><h3>Prefeitura</h3></article>
     </div>
     <p class="vai surge"><a class="pilula branca" href="cidade/">Abrir o mapa da cidade</a></p>
   </div>
@@ -903,7 +939,17 @@ Não foi conferido: ...
           <p class="fechou">Venda encerrada em 18/11 às 11h11.</p>
           <p class="sete">Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</p>
         </div>
-        <ul><li>Comece Aqui, Organização e Banca de 5 revisores no acesso inicial</li><li>Vibe Coding em 18/11</li><li>Segurança em 25/11</li><li>Bônus Ser Encontrado em 02/12</li><li>Prefeitura em 09/12</li><li>Trilhas Plug and Play e Por Dentro</li><li>Vibe City e a Praça, no WhatsApp</li><li>Sessão de instalação ao vivo em 12/11, às 20h</li><li>Licença pessoal e numerada</li></ul>
+        <ul><li>Comece Aqui, Organização e Banca de 5 revisores no acesso inicial</li><li>GCC Heist incluído: Ficha da empresa e Heist</li><li>Vibe Coding em 18/11</li><li>Segurança em 18/11</li><li>Bônus Ser Encontrado em 18/11</li><li>Prefeitura em 18/11</li><li>Trilhas Plug and Play e Por Dentro</li><li>Vibe City e a Praça, no WhatsApp</li><li>Sessão de instalação ao vivo em 12/11, às 20h</li><li>Licença pessoal e numerada</li></ul>
+      </div>
+      <!-- GCC Heist: texto provisório, só fatos (FICHA e produto/heist/COMECE-AQUI.md), até o Vaz mandar o dele. -->
+      <div class="edicao heist surge" id="heist">
+        <div class="lado">
+          <p class="olho deco">Avulso</p><h3>GCC Heist</h3><p class="para">Tudo o que você acha bom vira uma versão pronta para a sua empresa.</p>
+          <p class="preco"><sup>R$</sup>111,11</p>
+          <a class="pilula" data-produto="heist" href="https://buy.stripe.com/14A7sN1AT9WU7IG3320Fi06" rel="noopener">Quero o GCC Heist</a>
+          <p class="sete">Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</p>
+        </div>
+        <ul><li>2 skills: Ficha da empresa (<span style="white-space:nowrap">vc-empresa</span>) e Heist (<span style="white-space:nowrap">vc-heist</span>)</li><li>Funciona no aplicativo do Claude e no Claude Code</li><li>Precisa de um plano pago do Claude, que não está incluído</li><li>Já vem incluído na edição Fundador</li></ul>
       </div>
     </div>
   </div>
@@ -918,11 +964,11 @@ Não foi conferido: ...
     <details><summary>Até quando posso comprar?</summary><p>A venda é única: abriu em 11/11/2026 às 11h11 e fecha em 18/11/2026 às 11h11, horário de Brasília. Não reabre.</p></details>
     <details><summary>Tem garantia?</summary><p>Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</p></details>
     <details><summary>Preciso saber programar?</summary><p>Não para começar: o guia, o Perfil, a Memória, o Formato de resposta e o Primeiro projeto funcionam no aplicativo, sem terminal. Faxina, Pastas e projetos, Pelo celular, a Banca completa e os pacotes de construção pedem que você instale o Claude Code e podem exigir conhecimentos técnicos adicionais, conforme a complexidade do trabalho.</p></details>
-    <details><summary>O Claude está incluído?</summary><p>Não. As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code. A instalação inicial é feita no computador (Mac ou Windows). A Prefeitura, em 09/12, pede um plano maior do Claude e utiliza Jira para o quadro automatizado.</p></details>
+    <details><summary>O Claude está incluído?</summary><p>Não. As skills foram feitas para o Claude. A assinatura paga necessária não está incluída no valor do Grand Cheat Code. A instalação inicial é feita no computador (Mac ou Windows). A Prefeitura, em 18/11, pede um plano maior do Claude e utiliza Jira para o quadro automatizado.</p></details>
     <details><summary>O Grand Cheat Code é um curso?</summary><p>O núcleo da oferta é um conjunto de skills instaláveis, acompanhado de instruções para utilização e das duas trilhas de aprendizagem.</p></details>
     <details><summary>O que é uma skill?</summary><p>Um arquivo que ensina o Claude a fazer uma coisa do jeito certo. Você instala uma vez. Toda skill tem duas trilhas: Plug and Play, para instalar e usar, e Por Dentro, com o que dá para ajustar e o porquê de cada escolha.</p></details>
     <details><summary>Quem criou o Grand Cheat Code?</summary><p>Gustavo Fonseca, engenheiro, da GFV.</p></details>
-    <details><summary>Recebo todos os pacotes no momento da compra?</summary><p>Não. Comece Aqui, Organização e a Banca de 5 revisores fazem parte do acesso inicial. Os demais pacotes entram na sua licença seguindo o calendário de liberação apresentado.</p></details>
+    <details><summary>Recebo todos os pacotes no momento da compra?</summary><p>Não. Comece Aqui, Organização e a Banca de 5 revisores fazem parte do acesso inicial. Os demais pacotes entram na sua licença em 18/11.</p></details>
     <details><summary>Funciona com Codex ou outras IAs?</summary><p>As skills desta edição são feitas para Claude. Os princípios de engenharia podem ser aplicáveis a outros contextos, mas isso não representa compatibilidade técnica automática.</p></details>
     <details><summary>Posso utilizar nos projetos dos meus clientes?</summary><p>Sim, desde que quem opera seja você, respeitando a licença pessoal. Compartilhar ou redistribuir os arquivos para outras pessoas ou equipes não está incluído nessa licença.</p></details>
     <details><summary>Quais dados são enviados pelas skills?</summary><p>Hoje, nenhum. O sinal de uso vem desligado e só liga se você ligar, a partir de 18/11. Ligado, envia só seis dados: o número da sua licença, qual skill rodou, a versão, a etapa, se deu certo e a faixa do seu perfil (leve, média ou pesada). Você desliga quando quiser. Nunca seus arquivos, conversas, código ou o nome do seu projeto.</p></details>
@@ -940,7 +986,7 @@ Não foi conferido: ...
   </div>
 </section>
 
-<footer><div class="miolo">Grand Cheat Code · por Gustavo Fonseca · GFV · venda única: abre em 11/11 às 11h11 e fecha em 18/11 às 11h11 (horário de Brasília). Produto independente, sem vínculo com estúdios ou franquias de jogos. <a href="privacidade/">Privacidade</a> · <a href="#" onclick="window.gccCookies&amp;&amp;gccCookies();return false">Cookies</a> · <a href="llms.txt">llms.txt</a></div></footer>
+<footer><div class="miolo">Grand Cheat Code · por Gustavo Fonseca · GFV · venda única: abre em 11/11 às 11h11 e fecha em 18/11 às 11h11 (horário de Brasília). Produto independente, sem vínculo com estúdios ou franquias de jogos. Vendido por GF SOFTWARE LTDA · CNPJ 57.366.176/0001-89 · <a href="mailto:contato@gfsoftware.tech">contato@gfsoftware.tech</a> · <a href="privacidade/">Privacidade</a> · <a href="#" onclick="window.gccCookies&amp;&amp;gccCookies();return false">Cookies</a> · <a href="llms.txt">llms.txt</a></div></footer>
 
 <div class="barra" id="barra">
   <div class="txt"><b id="curto">--:--:--</b><span data-antes="até abrir" data-aberto="até fechar" data-encerrado="venda fechada em 18/11 às 11h11">até abrir</span><span class="fuso"> · horário de Brasília</span></div>

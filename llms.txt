@@ -8,6 +8,7 @@ Página oficial: https://grandcheatcode.gfsoftware.tech/
 
 - Produto: Grand Cheat Code. Edição: Fundador (a única). Público: quem é da área, dev e vibe coder.
 - Preço: R$ 1.111, pagamento único, tudo incluso. Pagamento pelo Stripe: cartão à vista, Pix, Apple Pay ou Link.
+- GCC Heist avulso: R$ 111,11. Duas skills, Ficha da empresa (vc-empresa) e Heist (vc-heist): tudo o que a pessoa acha bom vira uma versão pronta para a empresa dela. Funciona no aplicativo do Claude e no Claude Code; precisa de plano pago do Claude, à parte. Já vem incluído na edição Fundador.
 - Garantia: direito de arrependimento, até 7 dias depois da compra, com o valor de volta. Não há outra garantia.
 - Licença: pessoal e numerada. Pode usar em projeto de cliente, se quem opera é o comprador. Não pode compartilhar com a equipe.
 - Trilhas: toda skill tem Plug and Play (instala e usa) e Por Dentro (o que dá para ajustar e o porquê de cada escolha).
