@@ -109,6 +109,9 @@
      "price": "111.11",
      "priceCurrency": "BRL",
      "availability": "https://schema.org/InStock",
+     "validFrom": "2026-11-11T11:11:00-03:00",
+     "priceValidUntil": "2026-11-18",
+     "availabilityEnds": "2026-11-18T11:11:00-03:00",
      "itemOffered": {
       "@type": "Product",
       "name": "GCC Heist",
@@ -464,6 +467,7 @@ h2 span{background:var(--por-do-sol);-webkit-background-clip:text;background-cli
 .edicao .sete{font-size:14px;color:var(--lilas);margin-top:14px;line-height:1.45}
 .edicao .fechou{display:none;margin-top:26px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:30px;line-height:1.05;text-transform:uppercase;color:var(--rosa)}
 [data-fase="encerrado"] .edicao .fechou{display:block}
+[data-fase="encerrado"] .edicao.heist .pilula{display:none} /* o Heist fecha junto com o Fundador (Gustavo, 12/11) */
 /* GCC Heist: oferta avulsa, abaixo do Fundador e menor (o Fundador continua como a oferta principal) */
 .edicao.heist{margin-top:22px;padding:28px 36px;background:var(--noite2);border:1px solid rgba(204,194,245,.22)}
 .edicao.heist h3{font-size:40px}
@@ -947,9 +951,10 @@ Não foi conferido: ...
           <p class="olho deco">Avulso</p><h3>GCC Heist</h3><p class="para">Tudo o que você acha bom vira uma versão pronta para a sua empresa.</p>
           <p class="preco"><sup>R$</sup>111,11</p>
           <a class="pilula" data-produto="heist" href="https://buy.stripe.com/14A7sN1AT9WU7IG3320Fi06" rel="noopener">Quero o GCC Heist</a>
+          <p class="fechou">Venda encerrada em 18/11 às 11h11.</p>
           <p class="sete">Direito de arrependimento: até 7 dias depois da compra, você pode desistir e receber o valor de volta.</p>
         </div>
-        <ul><li>2 skills: Ficha da empresa (<span style="white-space:nowrap">vc-empresa</span>) e Heist (<span style="white-space:nowrap">vc-heist</span>)</li><li>Funciona no aplicativo do Claude e no Claude Code</li><li>Precisa de um plano pago do Claude, que não está incluído</li><li>Já vem incluído na edição Fundador</li></ul>
+        <ul><li data-antes="À venda até 18/11 às 11h11" data-aberto="À venda até 18/11 às 11h11" data-encerrado="Venda encerrada em 18/11 às 11h11">À venda até 18/11 às 11h11</li><li>2 skills: Ficha da empresa (<span style="white-space:nowrap">vc-empresa</span>) e Heist (<span style="white-space:nowrap">vc-heist</span>)</li><li>Funciona no aplicativo do Claude e no Claude Code</li><li>Precisa de um plano pago do Claude, que não está incluído</li><li>Já vem incluído na edição Fundador</li></ul>
       </div>
     </div>
   </div>
@@ -995,7 +1000,7 @@ Não foi conferido: ...
 
 <script>
 // Link do checkout da edição Fundador. Vazio: o botão de compra abre o WhatsApp da GFV com a mensagem pronta.
-const LINKS = { fundador: "https://buy.stripe.com/9B69AVcfx1qobYWdHG0Fi04" };
+const LINKS = { fundador: "https://buy.stripe.com/9B69AVcfx1qobYWdHG0Fi04", heist: "https://buy.stripe.com/14A7sN1AT9WU7IG3320Fi06" };
 const WHATSAPP = "5511982663987"; // o mesmo número do selo "Criado por GFV" das homes
 const MENSAGEM = "Quero ser fundador do Grand Cheat Code";
 // Venda única, horário de Brasília (UTC−3): abre em 11/11 às 11h11 e fecha em 18/11 às 11h11.
@@ -1019,6 +1024,11 @@ function aplica(nova) {
       b.href = "#edicoes"; b.removeAttribute("target"); b.removeAttribute("rel");
       b.setAttribute("aria-disabled", "true");
     }
+  });
+  // GCC Heist avulso: à venda só com a venda aberta, como o Fundador. Fora dela, o link não leva ao Stripe.
+  document.querySelectorAll('[data-produto="heist"]').forEach(b => {
+    if (nova === "aberto") { b.href = LINKS.heist; b.rel = "noopener"; b.removeAttribute("aria-disabled"); }
+    else { b.href = "#edicoes"; b.removeAttribute("rel"); b.setAttribute("aria-disabled", "true"); }
   });
 }
 function tique() {
